@@ -1,31 +1,19 @@
-handpan@handpan-no-MacBook-Pro sample-app % bundle exec rails s
-=> Booting Puma
-=> Rails 6.0.3.1 application starting in development 
-=> Run `rails server --help` for more startup options
-Puma starting in single mode...
-* Version 4.3.5 (ruby 2.6.3-p62), codename: Mysterious Traveller
-* Min threads: 5, max threads: 5
-* Environment: development
-* Listening on tcp://127.0.0.1:3000
-* Listening on tcp://[::1]:3000
-Use Ctrl-C to stop
-Started GET "/users/sign_up" for ::1 at 2020-06-15 07:49:52 +0900
-   (14.4ms)  SET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483
-   (2.1ms)  SELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC
-Processing by Devise::RegistrationsController#new as HTML
-  Rendering vendor/bundle/ruby/2.6.0/gems/devise-4.7.2/app/views/devise/registrations/new.html.erb within layouts/application
-  Rendered vendor/bundle/ruby/2.6.0/gems/devise-4.7.2/app/views/devise/shared/_error_messages.html.erb (Duration: 6.2ms | Allocations: 216)
-  Rendered vendor/bundle/ruby/2.6.0/gems/devise-4.7.2/app/views/devise/shared/_links.html.erb (Duration: 1.8ms | Allocations: 550)
-  Rendered vendor/bundle/ruby/2.6.0/gems/devise-4.7.2/app/views/devise/registrations/new.html.erb within layouts/application (Duration: 73.8ms | Allocations: 9433)
-Completed 500 Internal Server Error in 396ms (ActiveRecord: 11.3ms | Allocations: 43095)
+Last login: Fri Jun 26 10:51:26 on ttys015
+handpan@handpan-no-MacBook-Pro ~ % ssh -i ~/.Downloads/raisetech-demo.pem ec2-user@3.112.227.132
+Warning: Identity file /Users/handpan/.Downloads/raisetech-demo.pem not accessible: No such file or directory.
+ssh: connect to host 3.112.227.132 port 22: Operation timed out
+handpan@handpan-no-MacBook-Pro ~ % defaults write com.apple.finder AppleShowAllFiles TRUE
+handpan@handpan-no-MacBook-Pro ~ % killall Finder　Finder
+No matching processes belonging to you were found
+handpan@handpan-no-MacBook-Pro ~ % killall Finder
+handpan@handpan-no-MacBook-Pro ~ % defaults write com.apple.finder AppleShowAllFiles FALSE
+handpan@handpan-no-MacBook-Pro ~ % ssh -i ~/.Downloads/raisetech-demo.pem ec2-user@3.112.227.132
+Warning: Identity file /Users/handpan/.Downloads/raisetech-demo.pem not accessible: No such file or directory.
 
-
-  
-ActionView::Template::Error (The asset "application.js" is not present in the asset pipeline.):
-     6:     <%= csp_meta_tag %>
-     7: 
-     8:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-     9:     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    10:   </head>
-    11: 
-    12:   <body>
+ssh: connect to host 3.112.227.132 port 22: Operation timed out
+handpan@handpan-no-MacBook-Pro ~ % 
+handpan@handpan-no-MacBook-Pro ~ % chmod 600 ~/.ssh/raisetech-demo.pem
+chmod: /Users/handpan/.ssh/raisetech-demo.pem: No such file or directory
+handpan@handpan-no-MacBook-Pro ~ % chmod 600 ~/.ssh/Downloads.pem
+chmod: /Users/handpan/.ssh/Downloads.pem: No such file or directory
+handpan@handpan-no-MacBook-Pro ~ % 
