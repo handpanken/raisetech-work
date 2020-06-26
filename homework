@@ -23,3 +23,7 @@ Warning: Identity file /Users/handpan/.ssh/raisetech-demo.pem not accessible: No
 ssh: connect to host 3.112.227.132 port 22: Operation timed out
 handpan@handpan-no-MacBook-Pro .ssh % ssh -i ~/.Downloads/raisetech-demo.pem ec2-user@3.112.227.132
 Warning: Identity file /Users/handpan/.Downloads/raisetech-demo.pem not accessible: No such file or directory.
+handpan@handpan-no-MacBook-Pro ~ % cd .ssh
+handpan@handpan-no-MacBook-Pro .ssh % ls -a
+.		..		known_hosts
+handpan@handpan-no-MacBook-Pro .ssh % 
