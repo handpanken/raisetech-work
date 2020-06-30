@@ -1,4 +1,24 @@
-ssh -i ~/.ssh/raisetech-demo.pem ec2-user@13.115.232.247
+handpan@handpan-no-MacBook-Pro ~ % defaults write com.apple.finder AppleShowAllFiles TRUE
+handpan@handpan-no-MacBook-Pro ~ % killall Finder
+handpan@handpan-no-MacBook-Pro ~ % ls -a
+.			.git			Gemfile
+..			.gitconfig		Gemfile.lock
+.CFUserTextEncoding	.gitignore		Library
+.DS_Store		.mysql_history		Movies
+.Trash			.nodebrew		Music
+.atom			.npm			Pictures
+.bash_history		.rbenv			Public
+.bash_profile		.ssh			association_tutorial
+.bash_profile.swn	.subversion		blog
+.bash_profile.swo	.viminfo		more
+.bash_profile.swp	.vscode			rails
+.bash_sessions		.yarnrc			raisetech-work
+.bashrc			.zsh_history		sample
+.bashrccd.swp		.zshrc			vendor
+.bundle			Desktop			workspace
+.config			Documents
+.gem			Downloads
+handpan@handpan-no-MacBook-Pro ~ % ssh -i ~/.ssh/raisetech-demo.pem ec2-user@13.115.232.247
 Warning: Identity file /Users/handpan/.ssh/raisetech-demo.pem not accessible: No such file or directory.
 The authenticity of host '13.115.232.247 (13.115.232.247)' can't be established.
 ECDSA key fingerprint is SHA256:sqEGmS711mX8X9QUM8fW7NRsCh++tMVeN9sVVaMZ8pA.
@@ -25,4 +45,46 @@ chown: /Users/handpan/.ssh/raisetech-demo.pem: No such file or directory
 handpan@handpan-no-MacBook-Pro ~ % ssh -i ~/.Downloads/raisetech-demo.pem ec2-user@13.115.232.247
 Warning: Identity file /Users/handpan/.Downloads/raisetech-demo.pem not accessible: No such file or directory.
 ec2-user@13.115.232.247: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
-handpan@handpan-no-MacBook-Pro ~ % 
+handpan@handpan-no-MacBook-Pro ~ % ssh -i ~/.Downloads/raisetech-demo.pem ec2-user@13.115.232.247
+
+Warning: Identity file /Users/handpan/.Downloads/raisetech-demo.pem not accessible: No such file or directory.
+ec2-user@13.115.232.247: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+handpan@handpan-no-MacBook-Pro ~ % ssh -i ~/.ssh/raisetech-demo.pem ec2-user@13.115.232.247
+Warning: Identity file /Users/handpan/.ssh/raisetech-demo.pem not accessible: No such file or directory.
+ec2-user@13.115.232.247: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+handpan@handpan-no-MacBook-Pro ~ % more /var/log/secure
+/var/log/secure: No such file or directory
+handpan@handpan-no-MacBook-Pro ~ %  /var/log/secure
+zsh: no such file or directory: /var/log/secure
+handpan@handpan-no-MacBook-Pro ~ % cat /var/log/secure
+cat: /var/log/secure: No such file or directory
+handpan@handpan-no-MacBook-Pro ~ % ls -alF ~/.ssh
+total 8
+drwx------   3 handpan  staff    96  6 24 09:43 ./
+drwxr-xr-x+ 49 handpan  staff  1568  6 30 12:22 ../
+-rw-r--r--   1 handpan  staff   351  6 30 12:32 known_hosts
+handpan@handpan-no-MacBook-Pro ~ % chmod 600 ~/.ssh/id_rsa
+chmod: /Users/handpan/.ssh/id_rsa: No such file or directory
+handpan@handpan-no-MacBook-Pro ~ % cd ~/.ssh
+handpan@handpan-no-MacBook-Pro .ssh % ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/handpan/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /Users/handpan/.ssh/id_rsa.
+Your public key has been saved in /Users/handpan/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:4xf2tnRzcmB8USIi15Kv+7l1OO4xz41Zol9isXRgEtI handpan@handpan-no-MacBook-Pro.local
+The key's randomart image is:
++---[RSA 3072]----+
+|        . ++o . .|
+|         oooEo ..|
+|           o. o. |
+|            .+ ..|
+|        S o.  * o|
+|       . o.o o B |
+|        . ..+ # *|
+|         ..o O ^.|
+|           .*+* +|
++----[SHA256]-----+
+handpan@handpan-no-MacBook-Pro .ssh % 
