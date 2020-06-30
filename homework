@@ -1,29 +1,28 @@
-Last login: Fri Jun 26 10:51:26 on ttys015
-handpan@handpan-no-MacBook-Pro ~ % ssh -i ~/.Downloads/raisetech-demo.pem ec2-user@3.112.227.132
-Warning: Identity file /Users/handpan/.Downloads/raisetech-demo.pem not accessible: No such file or directory.
-ssh: connect to host 3.112.227.132 port 22: Operation timed out
-handpan@handpan-no-MacBook-Pro ~ % defaults write com.apple.finder AppleShowAllFiles TRUE
-handpan@handpan-no-MacBook-Pro ~ % killall Finder　Finder
-No matching processes belonging to you were found
-handpan@handpan-no-MacBook-Pro ~ % killall Finder
-handpan@handpan-no-MacBook-Pro ~ % defaults write com.apple.finder AppleShowAllFiles FALSE
-handpan@handpan-no-MacBook-Pro ~ % ssh -i ~/.Downloads/raisetech-demo.pem ec2-user@3.112.227.132
-Warning: Identity file /Users/handpan/.Downloads/raisetech-demo.pem not accessible: No such file or directory.
-
-ssh: connect to host 3.112.227.132 port 22: Operation timed out
-handpan@handpan-no-MacBook-Pro ~ % 
-handpan@handpan-no-MacBook-Pro ~ % chmod 600 ~/.ssh/raisetech-demo.pem
-chmod: /Users/handpan/.ssh/raisetech-demo.pem: No such file or directory
-handpan@handpan-no-MacBook-Pro ~ % chmod 600 ~/.ssh/Downloads.pem
-chmod: /Users/handpan/.ssh/Downloads.pem: No such file or directory
-handpan@handpan-no-MacBook-Pro ~ % 
-handpan@handpan-no-MacBook-Pro ~ % cd .ssh
-handpan@handpan-no-MacBook-Pro .ssh % ssh -i ~/.ssh/raisetech-demo.pem ec2-user@3.112.227.132
+ssh -i ~/.ssh/raisetech-demo.pem ec2-user@13.115.232.247
 Warning: Identity file /Users/handpan/.ssh/raisetech-demo.pem not accessible: No such file or directory.
-ssh: connect to host 3.112.227.132 port 22: Operation timed out
-handpan@handpan-no-MacBook-Pro .ssh % ssh -i ~/.Downloads/raisetech-demo.pem ec2-user@3.112.227.132
-Warning: Identity file /Users/handpan/.Downloads/raisetech-demo.pem not accessible: No such file or directory.
+The authenticity of host '13.115.232.247 (13.115.232.247)' can't be established.
+ECDSA key fingerprint is SHA256:sqEGmS711mX8X9QUM8fW7NRsCh++tMVeN9sVVaMZ8pA.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '13.115.232.247' (ECDSA) to the list of known hosts.
+ec2-user@13.115.232.247: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+handpan@handpan-no-MacBook-Pro ~ % tail /var/log/secure
+tail: /var/log/secure: No such file or directory
 handpan@handpan-no-MacBook-Pro ~ % cd .ssh
-handpan@handpan-no-MacBook-Pro .ssh % ls -a
-.		..		known_hosts
-handpan@handpan-no-MacBook-Pro .ssh % 
+handpan@handpan-no-MacBook-Pro .ssh % ssh -i ~/.ssh/raisetech-demo.pem ec2-user@13.115.232.247
+Warning: Identity file /Users/handpan/.ssh/raisetech-demo.pem not accessible: No such file or directory.
+ec2-user@13.115.232.247: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+handpan@handpan-no-MacBook-Pro .ssh % chown login_user ~/.ssh/raisetech-demo.pem 
+chown: login_user: illegal user name
+handpan@handpan-no-MacBook-Pro .ssh % cd homer
+cd: no such file or directory: homer
+handpan@handpan-no-MacBook-Pro .ssh % cd home
+cd: no such file or directory: home
+handpan@handpan-no-MacBook-Pro .ssh % cd ~ 
+handpan@handpan-no-MacBook-Pro ~ % chown login_user ~/.ssh/raisetech-demo.pem
+chown: login_user: illegal user name
+handpan@handpan-no-MacBook-Pro ~ % chown handpan ~/.ssh/raisetech-demo.pem
+chown: /Users/handpan/.ssh/raisetech-demo.pem: No such file or directory
+handpan@handpan-no-MacBook-Pro ~ % ssh -i ~/.Downloads/raisetech-demo.pem ec2-user@13.115.232.247
+Warning: Identity file /Users/handpan/.Downloads/raisetech-demo.pem not accessible: No such file or directory.
+ec2-user@13.115.232.247: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+handpan@handpan-no-MacBook-Pro ~ % 
