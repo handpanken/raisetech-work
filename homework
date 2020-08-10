@@ -1,195 +1,51 @@
-handpan@handpan-no-MBP ~ % chmod 400 /.ssh/raisetech-dem.pem
-chmod: /.ssh/raisetech-dem.pem: No such file or directory
-handpan@handpan-no-MBP ~ % ls -la
-total 264
-drwxr-xr-x+ 49 handpan  staff   1568  7  3 14:04 .
-drwxr-xr-x   6 root     admin    192  4  7 04:45 ..
--r--------   1 handpan  staff      7  5  3 15:08 .CFUserTextEncoding
--rw-r--r--@  1 handpan  staff  14340  7  1 11:09 .DS_Store
-drwx------  22 handpan  staff    704  7  3 13:52 .Trash
-drwxr-xr-x  14 handpan  staff    448  5  4 18:35 .atom
--rw-------   1 handpan  staff   1943  5  7 14:18 .bash_history
--rw-r--r--   1 handpan  staff     47  5 13 08:02 .bash_profile
--rw-r--r--   1 handpan  staff  12288  5 11 13:08 .bash_profile.swn
--rw-r--r--   1 handpan  staff  12288  5  9 18:09 .bash_profile.swo
--rw-r--r--   1 handpan  staff  12288  5 13 10:11 .bash_profile.swp
-drwx------  61 handpan  staff   1952  5  7 14:18 .bash_sessions
--rw-r--r--   1 handpan  staff      0  5  7 09:30 .bashrc
--rw-------   1 handpan  staff  12288  5  7 09:40 .bashrccd.swp
-drwxr-xr-x   4 handpan  staff    128  5 13 20:21 .bundle
-drwx------   3 handpan  staff     96  6 15 07:55 .config
-drwxr-xr-x   4 handpan  staff    128  5 13 09:35 .gem
-drwxr-xr-x   9 handpan  staff    288  5 25 07:16 .git
--rw-r--r--   1 handpan  staff    238  5 24 18:58 .gitconfig
--rw-r--r--   1 handpan  staff      0  5 22 13:24 .gitignore
--rw-------   1 handpan  staff    133  6 14 16:10 .mysql_history
-drwxr-xr-x   6 handpan  staff    192  5 15 22:51 .nodebrew
-drwxr-xr-x   6 handpan  staff    192  6 15 07:56 .npm
-drwxr-xr-x   5 handpan  staff    160  5 13 08:37 .rbenv
-drwx------   5 handpan  staff    160  6 30 14:47 .ssh
-drwxr-xr-x   6 handpan  staff    192  5  6 22:11 .subversion
--rw-------   1 handpan  staff  10039  6 12 11:09 .viminfo
-drwxr-xr-x   4 handpan  staff    128  5  4 08:43 .vscode
--rw-r--r--   1 handpan  staff    116  6 17 12:17 .yarnrc
--rw-------   1 handpan  staff  16409  7  3 14:04 .zsh_history
--rw-r--r--   1 handpan  staff    154  5 24 19:01 .zshrc
-drwx------@  8 handpan  staff    256  7  3 14:03 Desktop
-drwx------@  7 handpan  staff    224  5 19 10:58 Documents
-drwx------+  5 handpan  staff    160  7  1 11:09 Downloads
--rw-r--r--   1 handpan  staff    146  5 13 20:19 Gemfile
--rw-r--r--   1 handpan  staff   3356  5 13 20:24 Gemfile.lock
-drwx------@ 69 handpan  staff   2208  6 18 23:57 Library
-drwx------@  5 handpan  staff    160  5  3 16:23 Movies
-drwx------@  5 handpan  staff    160  5  4 13:45 Music
-drwx------@  5 handpan  staff    160  5  4 13:44 Pictures
-drwxr-xr-x+  5 handpan  staff    160  5  3 13:02 Public
-drwxr-xr-x  28 handpan  staff    896  6 12 10:18 association_tutorial
-drwxr-xr-x  22 handpan  staff    704  5 13 22:09 blog
--rw-r--r--   1 handpan  staff      0  5 13 17:47 more
-drwxr-xr-x   7 handpan  staff    224  5 16 16:15 rails
-drwxr-xr-x   7 handpan  staff    224  5 28 21:24 raisetech-work
-drwxr-xr-x  21 handpan  staff    672  5 24 21:05 sample
-drwxr-xr-x   3 handpan  staff     96  5 13 20:21 vendor
-drwxr-xr-x   5 handpan  staff    160  6 12 10:55 workspace
-handpan@handpan-no-MBP ~ % ssh -i /.ssh/raisetech-demo.pem ec2-user@54.238.86.28 
-Warning: Identity file /.ssh/raisetech-demo.pem not accessible: No such file or directory.
-ssh: connect to host 54.238.86.28 port 22: Operation timed out
-handpan@handpan-no-MBP ~ % ssh -i /.ssh/raisetech-demo.pem ec2-user@54.238.86.28 
-Warning: Identity file /.ssh/raisetech-demo.pem not accessible: No such file or directory.
-The authenticity of host '54.238.86.28 (54.238.86.28)' can't be established.
-ECDSA key fingerprint is SHA256:sqEGmS711mX8X9QUM8fW7NRsCh++tMVeN9sVVaMZ8pA.
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Warning: Permanently added '54.238.86.28' (ECDSA) to the list of known hosts.
-ec2-user@54.238.86.28: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
-handpan@handpan-no-MBP ~ % ssh -i .ssh/raisetech-demo.pem ec2-user@54.238.86.28
-Warning: Identity file .ssh/raisetech-demo.pem not accessible: No such file or directory.
-ec2-user@54.238.86.28: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
-handpan@handpan-no-MBP ~ % ssh -i /raisetech-demo.pem ec2-user@54.238.86.28 
-Warning: Identity file /raisetech-demo.pem not accessible: No such file or directory.
-ec2-user@54.238.86.28: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
-handpan@handpan-no-MBP ~ % ssh -i /Desktop/raisetech-demo.pem ec2-user@54.238.86.28 
-Warning: Identity file /Desktop/raisetech-demo.pem not accessible: No such file or directory.
-ec2-user@54.238.86.28: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
-handpan@handpan-no-MBP ~ % ssh -i Desktop/raisetech-demo.pem ec2-user@54.238.86.28 
-Warning: Identity file Desktop/raisetech-demo.pem not accessible: No such file or directory.
-ec2-user@54.238.86.28: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
-handpan@handpan-no-MBP ~ % ssh -vvv i-09b0b2c67780e1c79@54.238.86.28
-OpenSSH_8.1p1, LibreSSL 2.7.3
-debug1: Reading configuration data /etc/ssh/ssh_config
-debug1: /etc/ssh/ssh_config line 47: Applying options for *
-debug2: resolve_canonicalize: hostname 54.238.86.28 is address
-debug2: ssh_connect_direct
-debug1: Connecting to 54.238.86.28 [54.238.86.28] port 22.
-debug1: Connection established.
-debug1: identity file /Users/handpan/.ssh/id_rsa type 0
-debug1: identity file /Users/handpan/.ssh/id_rsa-cert type -1
-debug1: identity file /Users/handpan/.ssh/id_dsa type -1
-debug1: identity file /Users/handpan/.ssh/id_dsa-cert type -1
-debug1: identity file /Users/handpan/.ssh/id_ecdsa type -1
-debug1: identity file /Users/handpan/.ssh/id_ecdsa-cert type -1
-debug1: identity file /Users/handpan/.ssh/id_ed25519 type -1
-debug1: identity file /Users/handpan/.ssh/id_ed25519-cert type -1
-debug1: identity file /Users/handpan/.ssh/id_xmss type -1
-debug1: identity file /Users/handpan/.ssh/id_xmss-cert type -1
-debug1: Local version string SSH-2.0-OpenSSH_8.1
-debug1: Remote protocol version 2.0, remote software version OpenSSH_7.4
-debug1: match: OpenSSH_7.4 pat OpenSSH_7.0*,OpenSSH_7.1*,OpenSSH_7.2*,OpenSSH_7.3*,OpenSSH_7.4*,OpenSSH_7.5*,OpenSSH_7.6*,OpenSSH_7.7* compat 0x04000002
-debug2: fd 3 setting O_NONBLOCK
-debug1: Authenticating to 54.238.86.28:22 as 'i-09b0b2c67780e1c79'
-debug3: hostkeys_foreach: reading file "/Users/handpan/.ssh/known_hosts"
-debug3: record_hostkey: found key type ECDSA in file /Users/handpan/.ssh/known_hosts:3
-debug3: load_hostkeys: loaded 1 keys from 54.238.86.28
-debug3: order_hostkeyalgs: prefer hostkeyalgs: ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521
-debug3: send packet: type 20
-debug1: SSH2_MSG_KEXINIT sent
-debug3: receive packet: type 20
-debug1: SSH2_MSG_KEXINIT received
-debug2: local client KEXINIT proposal
-debug2: KEX algorithms: curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256,diffie-hellman-group14-sha1,ext-info-c
-debug2: host key algorithms: ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa
-debug2: ciphers ctos: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com
-debug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com
-debug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1
-debug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1
-debug2: compression ctos: none,zlib@openssh.com,zlib
-debug2: compression stoc: none,zlib@openssh.com,zlib
-debug2: languages ctos: 
-debug2: languages stoc: 
-debug2: first_kex_follows 0 
-debug2: reserved 0 
-debug2: peer server KEXINIT proposal
-debug2: KEX algorithms: curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha256,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
-debug2: host key algorithms: ssh-rsa,rsa-sha2-512,rsa-sha2-256,ecdsa-sha2-nistp256,ssh-ed25519
-debug2: ciphers ctos: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc,blowfish-cbc,cast128-cbc,3des-cbc
-debug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc,blowfish-cbc,cast128-cbc,3des-cbc
-debug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1
-debug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1
-debug2: compression ctos: none,zlib@openssh.com
-debug2: compression stoc: none,zlib@openssh.com
-debug2: languages ctos: 
-debug2: languages stoc: 
-debug2: first_kex_follows 0 
-debug2: reserved 0 
-debug1: kex: algorithm: curve25519-sha256
-debug1: kex: host key algorithm: ecdsa-sha2-nistp256
-debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
-debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
-debug3: send packet: type 30
-debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
-debug3: receive packet: type 31
-debug1: Server host key: ecdsa-sha2-nistp256 SHA256:sqEGmS711mX8X9QUM8fW7NRsCh++tMVeN9sVVaMZ8pA
-debug3: hostkeys_foreach: reading file "/Users/handpan/.ssh/known_hosts"
-debug3: record_hostkey: found key type ECDSA in file /Users/handpan/.ssh/known_hosts:3
-debug3: load_hostkeys: loaded 1 keys from 54.238.86.28
-debug1: Host '54.238.86.28' is known and matches the ECDSA host key.
-debug1: Found key in /Users/handpan/.ssh/known_hosts:3
-debug3: send packet: type 21
-debug2: set_newkeys: mode 1
-debug1: rekey out after 134217728 blocks
-debug1: SSH2_MSG_NEWKEYS sent
-debug1: expecting SSH2_MSG_NEWKEYS
-debug3: receive packet: type 21
-debug1: SSH2_MSG_NEWKEYS received
-debug2: set_newkeys: mode 0
-debug1: rekey in after 134217728 blocks
-debug1: Will attempt key: /Users/handpan/.ssh/id_rsa RSA SHA256:4xf2tnRzcmB8USIi15Kv+7l1OO4xz41Zol9isXRgEtI
-debug1: Will attempt key: /Users/handpan/.ssh/id_dsa 
-debug1: Will attempt key: /Users/handpan/.ssh/id_ecdsa 
-debug1: Will attempt key: /Users/handpan/.ssh/id_ed25519 
-debug1: Will attempt key: /Users/handpan/.ssh/id_xmss 
-debug2: pubkey_prepare: done
-debug3: send packet: type 5
-debug3: receive packet: type 7
-debug1: SSH2_MSG_EXT_INFO received
-debug1: kex_input_ext_info: server-sig-algs=<rsa-sha2-256,rsa-sha2-512>
-debug3: receive packet: type 6
-debug2: service_accept: ssh-userauth
-debug1: SSH2_MSG_SERVICE_ACCEPT received
-debug3: send packet: type 50
-debug3: receive packet: type 51
-debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic
-debug3: start over, passed a different list publickey,gssapi-keyex,gssapi-with-mic
-debug3: preferred publickey,keyboard-interactive,password
-debug3: authmethod_lookup publickey
-debug3: remaining preferred: keyboard-interactive,password
-debug3: authmethod_is_enabled publickey
-debug1: Next authentication method: publickey
-debug1: Offering public key: /Users/handpan/.ssh/id_rsa RSA SHA256:4xf2tnRzcmB8USIi15Kv+7l1OO4xz41Zol9isXRgEtI
-debug3: send packet: type 50
-debug2: we sent a publickey packet, wait for reply
-debug3: receive packet: type 51
-debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic
-debug1: Trying private key: /Users/handpan/.ssh/id_dsa
-debug3: no such identity: /Users/handpan/.ssh/id_dsa: No such file or directory
-debug1: Trying private key: /Users/handpan/.ssh/id_ecdsa
-debug3: no such identity: /Users/handpan/.ssh/id_ecdsa: No such file or directory
-debug1: Trying private key: /Users/handpan/.ssh/id_ed25519
-debug3: no such identity: /Users/handpan/.ssh/id_ed25519: No such file or directory
-debug1: Trying private key: /Users/handpan/.ssh/id_xmss
-debug3: no such identity: /Users/handpan/.ssh/id_xmss: No such file or directory
-debug2: we did not send a packet, disable method
-debug1: No more authentication methods to try.
-i-09b0b2c67780e1c79@54.238.86.28: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
-handpan@handpan-no-MBP ~ % mv raisetech-demo.pem id_dsa
-mv: rename raisetech-demo.pem to id_dsa: No such file or directory
-handpan@handpan-no-MBP ~ % 
+handpan@handpan-no-MacBook-Pro ~ % info amazon-ssm-agent 
+
+
+                                Configuring a package
+* ifnames: (autoconf)ifnames Invocation.
+                                Listing the conditionals in source code
+
+GNU programming tools
+* automake: (automake).         Making Makefile.in's
+
+Utilities
+* Bash: (bash).                     The GNU Bourne-Again SHell.
+
+GNU Packages
+* Tar: (tar).                   Making tape (or disk) archives.
+
+Individual utilities
+* tar: (tar)tar invocation.                     Invoking GNU `tar'
+
+Individual utilities
+* autoconf-invocation: (autoconf)autoconf Invocation.
+                                How to create configuration scripts
+* autoheader: (autoconf)autoheader Invocation.
+                                How to create configuration templates
+* autom4te: (autoconf)autom4te Invocation.
+                                The Autoconf executables backbone
+* autoreconf: (autoconf)autoreconf Invocation.
+                                Remaking multiple `configure' scripts
+* autoscan: (autoconf)autoscan Invocation.
+                                Semi-automatic `configure.ac' writing
+* autoupdate: (autoconf)autoupdate Invocation.
+                                Automatic update of `configure.ac'
+* config.status: (autoconf)config.status Invocation. Recreating configurations.
+* configure: (autoconf)configure Invocation.    Configuring a package.
+* ifnames: (autoconf)ifnames Invocation.        Listing conditionals in source.
+* testsuite: (autoconf)testsuite Invocation.    Running an Autotest test suite.
+
+Software development
+* Autoconf: (autoconf).         Create source code configuration scripts.
+
+
+
+
+
+
+
+
+
+
+-----Info: (dir)Top, 109 行 --Bot----------------------------------------------
+
