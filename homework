@@ -1,46 +1,18 @@
-handpan@handpan-no-MacBook-Pro ~ % yum info amazon-ssm-agent
-zsh: command not found: yum
-handpan@handpan-no-MacBook-Pro ~ % rbenv
-rbenv 1.1.2
-Usage: rbenv <command> [<args>]
-
-Some useful rbenv commands are:
-   commands    List all available rbenv commands
-   local       Set or show the local application-specific Ruby version
-   global      Set or show the global Ruby version
-   shell       Set or show the shell-specific Ruby version
-   install     Install a Ruby version using ruby-build
-   uninstall   Uninstall a specific Ruby version
-   rehash      Rehash rbenv shims (run this after installing executables)
-   version     Show the current Ruby version and its origin
-   versions    List installed Ruby versions
-   which       Display the full path to an executable
-   whence      List all Ruby versions that contain the given executable
-
-See `rbenv help <command>' for information on a specific command.
-For full documentation, see: https://github.com/rbenv/rbenv#readme
-handpan@handpan-no-MacBook-Pro ~ % which -a rbenv
-rbenv () {
-	local command
-	command="${1:-}" 
-	if [ "$#" -gt 0 ]
-	then
-		shift
-	fi
-	case "$command" in
-		(rehash | shell) eval "$(rbenv "sh-$command" "$@")" ;;
-		(*) command rbenv "$command" "$@" ;;
-	esac
-}
-/usr/local/bin/rbenv
-/usr/local/bin/rbenv
-/usr/local/bin/rbenv
-handpan@handpan-no-MacBook-Pro ~ % ls /usr/bin/zsh  
-ls: /usr/bin/zsh: No such file or directory
-handpan@handpan-no-MacBook-Pro ~ % ls /usr/local/bin/rbenv
-/usr/local/bin/rbenv
-handpan@handpan-no-MacBook-Pro ~ % yum info amazon-ssm-agent
-zsh: command not found: yum
-handpan@handpan-no-MacBook-Pro ~ % echo $PATH
-/usr/local/bin:/Users/handpan/.nodebrew/current/bin:/Users/handpan/.rbenv/shims:~/.rbenv/shims:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
-handpan@handpan-no-MacBook-Pro ~ % 
+handpan@handpan-no-MacBook-Pro ~ % ssh -i ~/.ssh/raishtech-demo.pem ec2-user@3.113.8.232
+ec2-user@3.113.8.232: Permission denied (publickey).
+handpan@handpan-no-MacBook-Pro ~ % chmod 600 ~/.ssh/raishtech-demo.pem
+handpan@handpan-no-MacBook-Pro ~ % ssh -i ~/.ssh/raishtech-demo.pem ec2-user@3.113.8.232
+ec2-user@3.113.8.232: Permission denied (publickey).
+handpan@handpan-no-MacBook-Pro ~ % ls
+Desktop			Movies			more
+Documents		Music			rails
+Downloads		Pictures		raisetech-work
+Gemfile			Public			sample
+Gemfile.lock		association_tutorial	vendor
+Library			blog			workspace
+handpan@handpan-no-MacBook-Pro ~ % ls -l ~/.ssh
+total 32
+-rw-------  1 handpan  staff  2675  6 30 14:47 id_rsa
+-rw-r--r--  1 handpan  staff   590  6 30 14:47 id_rsa.pub
+-rw-r--r--  1 handpan  staff  1398  8 14 12:26 known_hosts
+-rw-------@ 1 handpan  staff  1692  6 23 14:15 raishtech-demo.pem
