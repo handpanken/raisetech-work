@@ -228,6 +228,12 @@ Resources:
       SecurityGroupIds:
       - !Ref sgraisetechsgforpublic
 
+  ## EC2インスタンス,SSH接続用キーペア作成------------------------------
+　"Parameters" : {
+    "KeyName": {
+      "Description" : "Name of an existing EC2 key pair for SSH access to the EC2 instance.",
+      "Type": "AWS::EC2::KeyPair::cloudformer.pem"},
+
   ## ELBの作成------------------------------
   RaiseTechELB:
     Type: "AWS::ApplicationLoadBalancing::LoadBalancer"
