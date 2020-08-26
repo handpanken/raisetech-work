@@ -94,7 +94,7 @@ Resources:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref subnet0aa3cfea0eae6c1c0
-      RouteTableId: !Ref rtb02b91d8a6bf2a3861"
+      RouteTableId: !Ref rtb02b91d8a6bf2a3861
 
   PubSubnet1cRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
@@ -111,17 +111,17 @@ Resources:
         Value: RaiseTechIGW
 
   AttachGateway:
-    Type: AWS::EC2::VPCGatewayAttachment
-    Properties:S
-      VpcId:!Refvpc059cdc53533e7c3eb
-      InternetGatewayId:!Ref igw08cd691d98d891fa9
-    Type: AWS::EC2::Route
-    DependsOn: gw1
-    Properties:
-      RouteTableId:!Ref rtb02b91d8a6bf2a3861
-      DestinationCidrBlock: 0.0.0.0/0
-      GatewayId:!Ref igw08cd691d98d891fa9
-
+     Type: AWS::EC2::VPCGatewayAttachment
+     Properties:S
+       VpcId:!Refvpc059cdc53533e7c3eb
+       InternetGatewayId:!Ref igw08cd691d98d891fa9
+  Route:
+     Type: AWS::EC2::Route
+     DependsOn: gw1
+     Properties:
+       RouteTableId:!Ref rtb02b91d8a6bf2a3861
+       DestinationCidrBlock: 0.0.0.0/0
+       GatewayId:!Ref igw08cd691d98d891fa9
   ## セキュリティグループの作成（Public、Private、ELB）------------------------------
   RaiseTechsgforPublic:
     Type: AWS::EC2::SecurityGroup
