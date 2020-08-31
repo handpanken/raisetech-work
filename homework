@@ -1,291 +1,78 @@
-AWSTemplateFormatVersion: "2010-09-09"
-Description: RaiseTechTask8
+-----ec2.ymlの内容-----
+AWSTemplateFormatVersion: 2010-09-09
+Description: Hands-on template for EC2
 
-Parameters: 
-  # RDSのパラメーター------------------------------
-  RaiseTechRDSUser:
+Parameters:
+  VPCStack:
     Type: String
-    Default: admin
-    MinLength: 1
-    MaxLength: 16
-    NoEcho: true
+    Default: handson-cfn
+  EC2AMI:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
 
-  RaiseTechRDSPassword:
-    Type: String
-    Default: password
-    MinLength: 8
-    MaxLength: 16
-    NoEcho: true
-
-Resources: 
-
-  ## VPCの作成------------------------------
-  RaiseTechVPC:
-    Type: AWS::EC2::VPC
-    Properties:
-      CidrBlock: 10.16.0.0/16
-      EnableDnsSupport: "true"
-      EnableDnsHostnames: "true"
-      InstanceTenancy: default
-      Tags:
-      - Key: Name
-        Value: raisetech-live7
-
-  ## サブネットの作成------------------------------
-  raisetech-live7-public-1a:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref vpc059cdc53533e7c3eb
-      CidrBlock: 10.0.0.0/24
-      AvailabilityZone: "ap-northeast-1a"
-      Tags:
-      - Key: Name
-        Value: raisetech-live7-public-1a
-
-  ## raisetech-live7-public-1c:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref vpc059cdc53533e7c3eb
-      CidrBlock: 10.0.1.0/24
-      AvailabilityZone: "ap-northeast-1c"
-      Tags:
-      - Key: Name
-        Value: raisetech-live7-public-1c
-
-  ## raisetech-live7-private-1a:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref vpc059cdc53533e7c3eb
-      CidrBlock: 10.0.2.0/24
-      AvailabilityZone: "ap-northeast-1a"
-      Tags:
-      - Key: Name
-        Value: raisetech-live7-private-1a
-
-  ## raisetech-live7-private-1c:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref vpc059cdc53533e7c3eb
-      CidrBlock: 10.0.3.0/24
-      AvailabilityZone: "ap-northeast-1c"
-      Tags:
-      - Key: Name
-        Value: raisetech-live7-private-1c
-
-  ## ルートテーブル作成（Public、Private）------------------------------
-    raisetech-live7-public-1a:
-    Type: AWS::EC2::RouteTable
-    Properties:
-      VpcId: !Ref vpc059cdc53533e7c3eb
-      Tags:
-      - Key: Name
-        Value: raisetech-live7-public-1a
-
-    raisetech-live7-private-1a:
-    Type: AWS::EC2::RouteTable
-    Properties:
-      VpcId: !Ref vpc059cdc53533e7c3eb
-      Tags:
-      - Key: Name
-        Value: raisetech-live7-public-1a
-
-  ## サブネットとルートテーブルの関連付け------------------------------
-  PubSubnet1aRouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId: !Ref subnet0aa3cfea0eae6c1c0
-      RouteTableId: !Ref rtb02b91d8a6bf2a3861
-
-  PubSubnet1cRouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId: !Ref subnet0ab9f86a745bd04c5
-      RouteTableId: !Ref rtb02b91d8a6bf2a3861
-
-  ## インターネットゲートウェイ作成------------------------------
-  RaiseTechIGW:
-    Type: "AWS::EC2::InternetGateway"
-    Properties:
-      Tags:
-      - Key: Name
-        Value: RaiseTechIGW
-
-  AttachGateway:
-     Type: AWS::EC2::VPCGatewayAttachment
-     Properties:S
-       VpcId:!Refvpc059cdc53533e7c3eb
-       InternetGatewayId:!Ref igw08cd691d98d891fa9
-  Route:
-     Type: AWS::EC2::Route
-     DependsOn: gw1
-     Properties:
-       RouteTableId:!Ref rtb02b91d8a6bf2a3861
-       DestinationCidrBlock: 0.0.0.0/0
-       GatewayId:!Ref igw08cd691d98d891fa9
-  ## セキュリティグループの作成（Public、Private、ELB）------------------------------
-  RaiseTechsgforPublic:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      VpcId: !Ref vpc-07dbcbf901bd130d0
-      GroupName: "RaiseTechsgforPublic"
-      GroupDescription: "Enable HTTPS access via port 443"
-      Tags:
-      - Key: "Name"
-        Value: "cloudformer"
-      GroupDescription: Inbound
-      SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: "22"
-        ToPort: "22"
-        CidrIp: 0.0.0.0/0
-
-      - IpProtocol: tcp
-        FromPort: "80"
-        ToPort: "80"
-        CidrIp: 0.0.0.0/0
-
-      - IpProtocol: tcp
-        FromPort: "443"
-        ToPort: "443"
-        CidrIp: 0.0.0.0/0
-
-      - IpProtocol: tcp
-        FromPort: "3000"
-        ToPort: "3000"
-        CidrIp: 0.0.0.0/0
-
-  RaiseTechsgforPrivate:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      VpcId: !Ref vpc059cdc53533e7c3eb
-      GroupName: "RaiseTechsgforPrivate"
-      GroupDescription: "raisetech-live7-private"
-      Tags:
-      - Key: "Name"
-        Value: "cloudformer"
-      GroupDescription: Inbound
-      SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: "3306"
-        ToPort: "3306"
-        CidrIp: 0.0.0.0/0
-
-  RaiseTechsgforELB:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      VpcId: !Ref vpc059cdc53533e7c3eb
-      GroupName: "RaiseTechsgforELB"
-      GroupDescription: "launch-wizard-1 created 2020-06-23T14:11:01.575+09:00"
-      Tags:
-      - Key: "Name"
-        Value: "cloudformer"
-      GroupDescription: Inbound
-      SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: "80"
-        ToPort: "80"
-        CidrIp: 0.0.0.0/0
-
-      - IpProtocol: tcp
-        FromPort: "443"
-        ToPort: "443"
-        CidrIp: 0.0.0.0/0
-
-  ## AWSSupport-ResetAccess（指定されたEC2インスタンスのEC2Rescueツールを使用して
-  ## EC2 コンソールを通じてパスワードの復号を再度有効にする）作成------------------------------
-  name: ami-0a1c2ec61571737db
-    action: aws:runInstances
-     maxAttempts: 3
-     timeoutSeconds: 1200
-     onFailure: Abort
-    inputs:
-     ImageId: ami-0a1c2ec61571737db
-     InstanceType: t2.small
-     MinInstanceCount: 1
-     MaxInstanceCount: 1
-     IamInstanceProfileName: raisetech-live7
- TagSpecifications:
- -ResourceType: AWS::EC2::Instance
-      Tags:
-    - Key: raishtech-demo.pem
-        Value: "raisetech-live7-rails-1a"
-
-  ## EC2インスタンス作成------------------------------
-  RaiseTechInstance1a:
+Resources:
+  EC2WebServer01:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: "ami-0a1c2ec61571737db"
-      InstanceType: t2.small
-      SubnetId: !Ref raisetech-live7-public-1a
-      BlockDeviceMappings:
-      - DeviceName: "/dev/xvda"
-        Ebs:
-          VolumeType: "gp2"
-          VolumeSize: 7
-      Tags:
-      - Key: "raishtech-demo.pem"
-        Value: "raisetech-live7-rails-1a"
-      SecurityGroupIds:
-      - !Ref sgraisetechsgforpublic
+      ImageId: !Ref EC2AMI
+      InstanceType: t2.micro
+      SubnetId: subnet-01aeda5e911c7aa04
+      UserData: !Base64
+          #! /bin/bash
+          yum update -y
+          amazon-linux-extras install php7.2 -y
+          yum -y install mysql httpd php-mbstring php-xml
+          
+          wget http://ja.wordpress.org/latest-ja.tar.gz -P /tmp/
+          tar zxvf /tmp/latest-ja.tar.gz -C /tmp
+          cp -r /tmp/wordpress/* /var/www/html/
+          touch /var/www/html/.check_alive
+          chown apache:apache -R /var/www/html
+          
+          systemctl enable httpd.service
+          systemctl start httpd.service
+  EC2SG
+    Type: AWS::EC2::SecurityGroup
+    Properties 
+       GroupDescription: SG for web server
+       VpcId:  vpc-01823d3a520c8f160
+       SecurityGroupIngress: 
+             IpProtocol: tcp
+             CidrIp: 10.0.0.0/16
+             FromPort: 80
+             ToPort: 80
 
-  ## EC2インスタンス,SSH接続用キーペア作成------------------------------
-　"Parameters" : {
-    "KeyName": {
-      "Description" : "Name of an existing EC2 key pair for SSH access to the EC2 instance.",
-      "Type": "AWS::EC2::KeyPair::cloudformer.pem"},
+Outputs:
+  EC2WebServer01:
+    Value: !Ref EC2WebServer01
+    Export:
+      Name: !Sub ${AWS::StackName}-EC2WebServer01
 
-  ## ELBの作成------------------------------
-  RaiseTechELB:
-    Type: "AWS::ApplicationLoadBalancing::LoadBalancer"
-    Properties:
-      LoadBalancerName: "raisetech-live7-alb"
-      Scheme: "internet-facing"
-      HealthCheck:
-        Target: "HTTP:3000"
-        HealthyThreshold: 5
-        UnhealthyThreshold: 2
-        Interval: 30
-        Timeout: 5
-      ConnectionDrainingPolicy:
-        Enabled: true
-        Timeout: 300
-      Listeners:
-      - LoadBalancerPort: 80
-        InstancePort: 80
-        Protocol: HTTP
-      Instances:
-      - !Ref raisetech-live7-rails-1a
-      SecurityGroups:
-      - !Ref raisetech-sg-for-public
-      Subnets:
-      - !Ref raisetech-live7-public-1a
-      - !Ref raisetech-live7-public-1c
 
-  ## DBサブネットグループ作成------------------------------
-  RaisetechDBSubnetGroup:
-    Type: AWS::RDS::DBSubnetGroup
-    Properties:
-      DBSubnetGroupDescription: raisetech-live7-subnet-group
-      DBSubnetGroupName: "dbsubnetraisetechlive7subnetgroup"
-      SubnetIds:
-      - !Ref subnet098c0def815f7f70b
-      - !Ref subnet08728233a02ed6dda
 
-  ## RDS（MySQL）の作成------------------------------
-  RaisetechDBInstance:
-    Type: AWS::RDS::DBInstance
-    Properties:
-      DBInstanceIdentifier: "raisetech-live7-db"
-      AllocatedStorage: "20"
-      DBSubnetGroupName: !Ref dbsubnetraisetechlive7subnetgroup
-      VPCSecurityGroups:
-      - !Ref sgraisetechlive7private
-      MultiAZ: false
-      StorageType: "gp2"
-      DBInstanceClass: db.t2.micro
-      DBName: "MyDatabase"
-      Engine: mysql
-      EngineVersion: "5.7.28"
-      MasterUsername: !Ref admin
-      MasterUserPassword: !Ref MyPassword
-    DeletionPolicy: Snapshot
+
+-----ターミナルでの実行コマンド-----
+
+udemy:~/environment/cfn $ aws cloudformation update-stack --stack-name handson-cfn-ec2 --template-body file://02_ec2.yml
+{
+    "StackId": "arn:aws:cloudformation:ap-northeast-1:608283427828:stack/handson-cfn-ec2/43ea8c20-eb2a-11ea-86bd-0aec1eafc950"
+}
+udemy:~/environment/cfn $ aws cloudformation validate-template --template-body file://02_ec2.yml
+{
+    "Parameters": [
+        {
+            "ParameterKey": "VPCStack",
+            "DefaultValue": "handson-cfn",
+            "NoEcho": false
+        },
+        {
+            "ParameterKey": "EC2AMI",
+            "DefaultValue": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2",
+            "NoEcho": false
+        }
+    ],
+    "Description": "Hands-on template for EC2"
+}
+
+An error occurred (ValidationError) when calling the UpdateStack operation: Template format error: YAML not well-formed. (line 34, column 9)
+udemy:~/environment/cfn $ aws cloudformation update-stack --stack-name handson-cfn-ec2 --template-body file://02_ec2.yml
