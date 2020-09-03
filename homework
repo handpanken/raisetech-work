@@ -29,18 +29,18 @@ Resources:
           touch /var/www/html/.check_alive
           chown apache:apache -R /var/www/html
           
-          systemctl enable httpd.service
+          systemctl senable httpd.service
           systemctl start httpd.service
-  EC2SG
+          
     Type: AWS::EC2::SecurityGroup
-    Properties 
-       GroupDescription: SG for web server
+    Properties: 
+       GroupDescription: sg for web server
        VpcId:  vpc-01823d3a520c8f160
        SecurityGroupIngress: 
-             IpProtocol: tcp
-             CidrIp: 10.0.0.0/16
-             FromPort: 80
-             ToPort: 80
+           IpProtocol: tcp
+           CidrIp: 10.0.0.0/16
+           FromPort: 80
+           ToPort: 80
 
 Outputs:
   EC2WebServer01:
@@ -50,14 +50,9 @@ Outputs:
 
 
 
-
 -----ターミナルでの実行コマンド-----
 
-udemy:~/environment/cfn $ aws cloudformation update-stack --stack-name handson-cfn-ec2 --template-body file://02_ec2.yml
-{
-    "StackId": "arn:aws:cloudformation:ap-northeast-1:608283427828:stack/handson-cfn-ec2/43ea8c20-eb2a-11ea-86bd-0aec1eafc950"
-}
-udemy:~/environment/cfn $ aws cloudformation validate-template --template-body file://02_ec2.yml
+udemy:~/environment/cfn $ aws cloudformation validate-template --template-body file://02_ec2.yml        
 {
     "Parameters": [
         {
@@ -73,6 +68,7 @@ udemy:~/environment/cfn $ aws cloudformation validate-template --template-body f
     ],
     "Description": "Hands-on template for EC2"
 }
-
-An error occurred (ValidationError) when calling the UpdateStack operation: Template format error: YAML not well-formed. (line 34, column 9)
 udemy:~/environment/cfn $ aws cloudformation update-stack --stack-name handson-cfn-ec2 --template-body file://02_ec2.yml
+
+An error occurred (ValidationError) when calling the UpdateStack operation: Update of resource type is not permitted. The new template modifies resource type of the following resources: [EC2WebServer01]
+udemy:~/environment/cfn 
