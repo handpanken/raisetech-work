@@ -51,24 +51,55 @@ Outputs:
 
 
 -----ターミナルでの実行コマンド-----
-
-udemy:~/environment/cfn $ aws cloudformation validate-template --template-body file://02_ec2.yml        
-{
-    "Parameters": [
-        {
-            "ParameterKey": "VPCStack",
-            "DefaultValue": "handson-cfn",
-            "NoEcho": false
-        },
-        {
-            "ParameterKey": "EC2AMI",
-            "DefaultValue": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2",
-            "NoEcho": false
-        }
-    ],
-    "Description": "Hands-on template for EC2"
-}
-udemy:~/environment/cfn $ aws cloudformation update-stack --stack-name handson-cfn-ec2 --template-body file://02_ec2.yml
-
-An error occurred (ValidationError) when calling the UpdateStack operation: Update of resource type is not permitted. The new template modifies resource type of the following resources: [EC2WebServer01]
-udemy:~/environment/cfn 
+handpan@handpan-no-MacBook-Pro ~ % pip3 install cfn-lint
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: cfn-lint in ./Library/Python/3.7/lib/python/site-packages (0.35.0)
+Requirement already satisfied: junit-xml~=1.9 in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (1.9)
+Requirement already satisfied: networkx~=2.4; python_version >= "3.5" in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (2.5)
+Requirement already satisfied: jsonpatch; python_version != "3.4" in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (1.26)
+Requirement already satisfied: pyyaml; python_version != "3.4" in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (5.3.1)
+Requirement already satisfied: six~=1.11 in /Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/site-packages (from cfn-lint) (1.12.0)
+Requirement already satisfied: jsonschema~=3.0 in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (3.2.0)
+Requirement already satisfied: aws-sam-translator>=1.25.0 in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (1.26.0)
+Requirement already satisfied: decorator>=4.3.0 in ./Library/Python/3.7/lib/python/site-packages (from networkx~=2.4; python_version >= "3.5"->cfn-lint) (4.4.2)
+Requirement already satisfied: jsonpointer>=1.9 in ./Library/Python/3.7/lib/python/site-packages (from jsonpatch; python_version != "3.4"->cfn-lint) (2.0)
+Requirement already satisfied: attrs>=17.4.0 in ./Library/Python/3.7/lib/python/site-packages (from jsonschema~=3.0->cfn-lint) (20.1.0)
+Requirement already satisfied: setuptools in /Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/site-packages (from jsonschema~=3.0->cfn-lint) (40.8.0)
+Requirement already satisfied: importlib-metadata; python_version < "3.8" in ./Library/Python/3.7/lib/python/site-packages (from jsonschema~=3.0->cfn-lint) (1.7.0)
+Requirement already satisfied: pyrsistent>=0.14.0 in ./Library/Python/3.7/lib/python/site-packages (from jsonschema~=3.0->cfn-lint) (0.16.0)
+Requirement already satisfied: boto3~=1.5 in ./Library/Python/3.7/lib/python/site-packages (from aws-sam-translator>=1.25.0->cfn-lint) (1.14.52)
+Requirement already satisfied: zipp>=0.5 in ./Library/Python/3.7/lib/python/site-packages (from importlib-metadata; python_version < "3.8"->jsonschema~=3.0->cfn-lint) (3.1.0)
+Requirement already satisfied: s3transfer<0.4.0,>=0.3.0 in ./Library/Python/3.7/lib/python/site-packages (from boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (0.3.3)
+Requirement already satisfied: jmespath<1.0.0,>=0.7.1 in ./Library/Python/3.7/lib/python/site-packages (from boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (0.10.0)
+Requirement already satisfied: botocore<1.18.0,>=1.17.52 in ./Library/Python/3.7/lib/python/site-packages (from boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (1.17.52)
+Requirement already satisfied: urllib3<1.26,>=1.20; python_version != "3.4" in ./Library/Python/3.7/lib/python/site-packages (from botocore<1.18.0,>=1.17.52->boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (1.25.10)
+Requirement already satisfied: python-dateutil<3.0.0,>=2.1 in ./Library/Python/3.7/lib/python/site-packages (from botocore<1.18.0,>=1.17.52->boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (2.8.1)
+Requirement already satisfied: docutils<0.16,>=0.10 in ./Library/Python/3.7/lib/python/site-packages (from botocore<1.18.0,>=1.17.52->boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (0.15.2)
+handpan@handpan-no-MacBook-Pro ~ % which cfn-lint
+cfn-lint not found
+handpan@handpan-no-MacBook-Pro ~ % pip install cfn-lint 
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: cfn-lint in ./Library/Python/3.7/lib/python/site-packages (0.35.0)
+Requirement already satisfied: pyyaml; python_version != "3.4" in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (5.3.1)
+Requirement already satisfied: aws-sam-translator>=1.25.0 in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (1.26.0)
+Requirement already satisfied: jsonpatch; python_version != "3.4" in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (1.26)
+Requirement already satisfied: jsonschema~=3.0 in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (3.2.0)
+Requirement already satisfied: networkx~=2.4; python_version >= "3.5" in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (2.5)
+Requirement already satisfied: junit-xml~=1.9 in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (1.9)
+Requirement already satisfied: six~=1.11 in /Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/site-packages (from cfn-lint) (1.12.0)
+Requirement already satisfied: boto3~=1.5 in ./Library/Python/3.7/lib/python/site-packages (from aws-sam-translator>=1.25.0->cfn-lint) (1.14.52)
+Requirement already satisfied: jsonpointer>=1.9 in ./Library/Python/3.7/lib/python/site-packages (from jsonpatch; python_version != "3.4"->cfn-lint) (2.0)
+Requirement already satisfied: importlib-metadata; python_version < "3.8" in ./Library/Python/3.7/lib/python/site-packages (from jsonschema~=3.0->cfn-lint) (1.7.0)
+Requirement already satisfied: setuptools in /Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/site-packages (from jsonschema~=3.0->cfn-lint) (40.8.0)
+Requirement already satisfied: pyrsistent>=0.14.0 in ./Library/Python/3.7/lib/python/site-packages (from jsonschema~=3.0->cfn-lint) (0.16.0)
+Requirement already satisfied: attrs>=17.4.0 in ./Library/Python/3.7/lib/python/site-packages (from jsonschema~=3.0->cfn-lint) (20.1.0)
+Requirement already satisfied: decorator>=4.3.0 in ./Library/Python/3.7/lib/python/site-packages (from networkx~=2.4; python_version >= "3.5"->cfn-lint) (4.4.2)
+Requirement already satisfied: jmespath<1.0.0,>=0.7.1 in ./Library/Python/3.7/lib/python/site-packages (from boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (0.10.0)
+Requirement already satisfied: botocore<1.18.0,>=1.17.52 in ./Library/Python/3.7/lib/python/site-packages (from boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (1.17.52)
+Requirement already satisfied: s3transfer<0.4.0,>=0.3.0 in ./Library/Python/3.7/lib/python/site-packages (from boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (0.3.3)
+Requirement already satisfied: zipp>=0.5 in ./Library/Python/3.7/lib/python/site-packages (from importlib-metadata; python_version < "3.8"->jsonschema~=3.0->cfn-lint) (3.1.0)
+Requirement already satisfied: urllib3<1.26,>=1.20; python_version != "3.4" in ./Library/Python/3.7/lib/python/site-packages (from botocore<1.18.0,>=1.17.52->boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (1.25.10)
+Requirement already satisfied: python-dateutil<3.0.0,>=2.1 in ./Library/Python/3.7/lib/python/site-packages (from botocore<1.18.0,>=1.17.52->boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (2.8.1)
+Requirement already satisfied: docutils<0.16,>=0.10 in ./Library/Python/3.7/lib/python/site-packages (from botocore<1.18.0,>=1.17.52->boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (0.15.2)
+handpan@handpan-no-MacBook-Pro ~ % which cfn-lint      
+cfn-lint not found
