@@ -48,9 +48,13 @@ sam build
 chsh -s /bin/zsh
 15.template.yaml 取得
 16.template.yaml が配置されているディレクトリに移動
-17.chsh -s /bin/bash
+17.handpan@handpan-no-MacBook-Pro jump-cut-automation % chsh -s /bin/bash
 Changing shell for handpan.
 Password for handpan: 
-handpan@handpan-no-MacBook-Pro jump-cut-automation % sam build
-zsh: command not found: sam
-→/zsh/bashに変更されていない
+chsh: no changes made
+handpan@handpan-no-MacBook-Pro jump-cut-automation % echo $SHELL 
+/bin/zsh
+handpan@handpan-no-MacBook-Pro jump-cut-automation % 
+→chsh: no changes madeから
+/zsh/bashに変更されていない
+18.macOS Catalina クリーンインストール検討 
