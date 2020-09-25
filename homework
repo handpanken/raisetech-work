@@ -1,105 +1,56 @@
------ec2.ymlの内容-----
-AWSTemplateFormatVersion: 2010-09-09
-Description: Hands-on template for EC2
+<2020/9/25>
+0.Lambda 関数については Python 3.8 で作成しています。
+Python 環境が無い方は、こちらなど、ご自身の環境へ Python をインストールしてください。
+1.Pythonなどで利用するC言語環境として、Command Line Tools をインストール
+引用:https://www.python.jp/install/macos/install_python.html
+2.ターミナルを起動し、次のコマンドを実行します。
+$ gcc
+3.clang: error: no input files
+→gccコマンドがインストール済みで使える状態なので下記の作業は行わなくてもよい
+4.実行
+% /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+5.brew install python@3.8
+6.Python3.7を実行する python3.8 コマンドは、/usr/local/bin ディレクトリに登録されないので、次のように手動で登録
+→ln -s /usr/local/opt/python@3.8/bin/python3.8/usr/local/bin/python3.8
+7.python3.8 のように、コマンドファイル名で使い分けるようにします。  
+$ python3.8 
+Python 3.8.3 (default, Jul  8 2020, 14:27:55) [Clang 11.0.3 (clang-1103.0.32.62)] on darwin Type "help", "copyright", "credits" or "license" for more information. >>>
+8.macOS への AWS SAM CLI（サーバーレスアプリケーションの作成と管理を容易にするコマンドラインツール） のインストール
+引用:https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
+9.IAM アクセス許可の設定  
+## IAM
+https://608283427828.signin.aws.amazon.com/
+アクセスキー：AKIAY3IEEQP2HWVOAGVI
+シークレットアクセスキー：LrZC2Z3Q6bOVI76anXVhlcoim222YihYONSzFflJ
+pass:6106217PEP25FE
+10.Docker をインストールします。
+注意 Dockerは、アプリケーションをローカルでテストするための前提条件です。  
+→Docker をインストールします。
+AWS SAM CLI では、macOS Sierra 10.12 以降で動作する Docker がサポートされています。Docker をインストールするには、Install Docker Desktop for Mac を参照してください。
 
-Parameters:
-  VPCStack:
-    Type: String
-    Default: handson-cfn
-  EC2AMI:
-    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
-    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+——————————————未解決—————————————
 
-Resources:
-  EC2WebServer01:
-    Type: AWS::EC2::Instance
-    Properties:
-      ImageId: !Ref EC2AMI
-      InstanceType: t2.micro
-      SubnetId: subnet-01aeda5e911c7aa04
-      UserData: !Base64
-          #! /bin/bash
-          yum update -y
-          amazon-linux-extras install php7.2 -y
-          yum -y install mysql httpd php-mbstring php-xml
-          
-          wget http://ja.wordpress.org/latest-ja.tar.gz -P /tmp/
-          tar zxvf /tmp/latest-ja.tar.gz -C /tmp
-          cp -r /tmp/wordpress/* /var/www/html/
-          touch /var/www/html/.check_alive
-          chown apache:apache -R /var/www/html
-          
-          systemctl senable httpd.service
-          systemctl start httpd.service
-          
-    Type: AWS::EC2::SecurityGroup
-    Properties: 
-       GroupDescription: sg for web server
-       VpcId:  vpc-01823d3a520c8f160
-       SecurityGroupIngress: 
-           IpProtocol: tcp
-           CidrIp: 10.0.0.0/16
-           FromPort: 80
-           ToPort: 80
+11.共有ドライブを設定します。
+AWS SAM CLI では、プロジェクトディレクトリまたは親ディレクトリが共有ドライブにリストされている必要があります。
+macOS でドライブを共有するには、File sharing を参照してください。
+引用https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
+→binとは、Binary codeのことでようするに実行可能プログラム置き場ということ。バイナリということはコンパイル型の言語により作られたプログラムが置かれるのだろう。
+引用https://qiita.com/totzyuta/items/84d610f56129a186f0c5
 
-Outputs:
-  EC2WebServer01:
-    Value: !Ref EC2WebServer01
-    Export:
-      Name: !Sub ${AWS::StackName}-EC2WebServer01
+——————————————未解決—————————————
 
 
-
------ターミナルでの実行コマンド-----
-handpan@handpan-no-MacBook-Pro ~ % pip3 install cfn-lint
-Defaulting to user installation because normal site-packages is not writeable
-Requirement already satisfied: cfn-lint in ./Library/Python/3.7/lib/python/site-packages (0.35.0)
-Requirement already satisfied: junit-xml~=1.9 in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (1.9)
-Requirement already satisfied: networkx~=2.4; python_version >= "3.5" in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (2.5)
-Requirement already satisfied: jsonpatch; python_version != "3.4" in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (1.26)
-Requirement already satisfied: pyyaml; python_version != "3.4" in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (5.3.1)
-Requirement already satisfied: six~=1.11 in /Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/site-packages (from cfn-lint) (1.12.0)
-Requirement already satisfied: jsonschema~=3.0 in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (3.2.0)
-Requirement already satisfied: aws-sam-translator>=1.25.0 in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (1.26.0)
-Requirement already satisfied: decorator>=4.3.0 in ./Library/Python/3.7/lib/python/site-packages (from networkx~=2.4; python_version >= "3.5"->cfn-lint) (4.4.2)
-Requirement already satisfied: jsonpointer>=1.9 in ./Library/Python/3.7/lib/python/site-packages (from jsonpatch; python_version != "3.4"->cfn-lint) (2.0)
-Requirement already satisfied: attrs>=17.4.0 in ./Library/Python/3.7/lib/python/site-packages (from jsonschema~=3.0->cfn-lint) (20.1.0)
-Requirement already satisfied: setuptools in /Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/site-packages (from jsonschema~=3.0->cfn-lint) (40.8.0)
-Requirement already satisfied: importlib-metadata; python_version < "3.8" in ./Library/Python/3.7/lib/python/site-packages (from jsonschema~=3.0->cfn-lint) (1.7.0)
-Requirement already satisfied: pyrsistent>=0.14.0 in ./Library/Python/3.7/lib/python/site-packages (from jsonschema~=3.0->cfn-lint) (0.16.0)
-Requirement already satisfied: boto3~=1.5 in ./Library/Python/3.7/lib/python/site-packages (from aws-sam-translator>=1.25.0->cfn-lint) (1.14.52)
-Requirement already satisfied: zipp>=0.5 in ./Library/Python/3.7/lib/python/site-packages (from importlib-metadata; python_version < "3.8"->jsonschema~=3.0->cfn-lint) (3.1.0)
-Requirement already satisfied: s3transfer<0.4.0,>=0.3.0 in ./Library/Python/3.7/lib/python/site-packages (from boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (0.3.3)
-Requirement already satisfied: jmespath<1.0.0,>=0.7.1 in ./Library/Python/3.7/lib/python/site-packages (from boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (0.10.0)
-Requirement already satisfied: botocore<1.18.0,>=1.17.52 in ./Library/Python/3.7/lib/python/site-packages (from boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (1.17.52)
-Requirement already satisfied: urllib3<1.26,>=1.20; python_version != "3.4" in ./Library/Python/3.7/lib/python/site-packages (from botocore<1.18.0,>=1.17.52->boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (1.25.10)
-Requirement already satisfied: python-dateutil<3.0.0,>=2.1 in ./Library/Python/3.7/lib/python/site-packages (from botocore<1.18.0,>=1.17.52->boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (2.8.1)
-Requirement already satisfied: docutils<0.16,>=0.10 in ./Library/Python/3.7/lib/python/site-packages (from botocore<1.18.0,>=1.17.52->boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (0.15.2)
-handpan@handpan-no-MacBook-Pro ~ % which cfn-lint
-cfn-lint not found
-handpan@handpan-no-MacBook-Pro ~ % pip install cfn-lint 
-Defaulting to user installation because normal site-packages is not writeable
-Requirement already satisfied: cfn-lint in ./Library/Python/3.7/lib/python/site-packages (0.35.0)
-Requirement already satisfied: pyyaml; python_version != "3.4" in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (5.3.1)
-Requirement already satisfied: aws-sam-translator>=1.25.0 in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (1.26.0)
-Requirement already satisfied: jsonpatch; python_version != "3.4" in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (1.26)
-Requirement already satisfied: jsonschema~=3.0 in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (3.2.0)
-Requirement already satisfied: networkx~=2.4; python_version >= "3.5" in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (2.5)
-Requirement already satisfied: junit-xml~=1.9 in ./Library/Python/3.7/lib/python/site-packages (from cfn-lint) (1.9)
-Requirement already satisfied: six~=1.11 in /Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/site-packages (from cfn-lint) (1.12.0)
-Requirement already satisfied: boto3~=1.5 in ./Library/Python/3.7/lib/python/site-packages (from aws-sam-translator>=1.25.0->cfn-lint) (1.14.52)
-Requirement already satisfied: jsonpointer>=1.9 in ./Library/Python/3.7/lib/python/site-packages (from jsonpatch; python_version != "3.4"->cfn-lint) (2.0)
-Requirement already satisfied: importlib-metadata; python_version < "3.8" in ./Library/Python/3.7/lib/python/site-packages (from jsonschema~=3.0->cfn-lint) (1.7.0)
-Requirement already satisfied: setuptools in /Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/site-packages (from jsonschema~=3.0->cfn-lint) (40.8.0)
-Requirement already satisfied: pyrsistent>=0.14.0 in ./Library/Python/3.7/lib/python/site-packages (from jsonschema~=3.0->cfn-lint) (0.16.0)
-Requirement already satisfied: attrs>=17.4.0 in ./Library/Python/3.7/lib/python/site-packages (from jsonschema~=3.0->cfn-lint) (20.1.0)
-Requirement already satisfied: decorator>=4.3.0 in ./Library/Python/3.7/lib/python/site-packages (from networkx~=2.4; python_version >= "3.5"->cfn-lint) (4.4.2)
-Requirement already satisfied: jmespath<1.0.0,>=0.7.1 in ./Library/Python/3.7/lib/python/site-packages (from boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (0.10.0)
-Requirement already satisfied: botocore<1.18.0,>=1.17.52 in ./Library/Python/3.7/lib/python/site-packages (from boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (1.17.52)
-Requirement already satisfied: s3transfer<0.4.0,>=0.3.0 in ./Library/Python/3.7/lib/python/site-packages (from boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (0.3.3)
-Requirement already satisfied: zipp>=0.5 in ./Library/Python/3.7/lib/python/site-packages (from importlib-metadata; python_version < "3.8"->jsonschema~=3.0->cfn-lint) (3.1.0)
-Requirement already satisfied: urllib3<1.26,>=1.20; python_version != "3.4" in ./Library/Python/3.7/lib/python/site-packages (from botocore<1.18.0,>=1.17.52->boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (1.25.10)
-Requirement already satisfied: python-dateutil<3.0.0,>=2.1 in ./Library/Python/3.7/lib/python/site-packages (from botocore<1.18.0,>=1.17.52->boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (2.8.1)
-Requirement already satisfied: docutils<0.16,>=0.10 in ./Library/Python/3.7/lib/python/site-packages (from botocore<1.18.0,>=1.17.52->boto3~=1.5->aws-sam-translator>=1.25.0->cfn-lint) (0.15.2)
-handpan@handpan-no-MacBook-Pro ~ % which cfn-lint      
-cfn-lint not found
+12.AWS SAM CLI のインストール
+13.Lambda 関数にデプロイするアプリケーション パッケージをビルド
+sam build
+→zsh: command not found: sam
+14.シェルの変更のコマンドはchshコマンド(change shell)を用います。
+chsh -s /bin/zsh
+15.template.yaml 取得
+16.template.yaml が配置されているディレクトリに移動
+17.chsh -s /bin/bash
+Changing shell for handpan.
+Password for handpan: 
+handpan@handpan-no-MacBook-Pro jump-cut-automation % sam build
+zsh: command not found: sam
+→/zsh/bashに変更されていない
