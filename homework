@@ -1,3 +1,31 @@
+<2020/9/26>
+18.macOS への AWS SAM CLI のインストール
+ステップ 5. AWS SAM CLI のインストール
+引用:https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
+→brew install aws-sam-cli/完了
+19.sam build
+→Build Succeeded
+20.sam deploy --guided
+引用
+→Error: Failed to create managed resources: Unable to locate credentials
+=エラーが発生しました。管理されたリソースの作成に失敗しました。資格情報を見つけることができません
+
+——————————————next—————————————
+21.
+aws configure list
+      Name                    Value             Type    Location
+      ----                    -----             ----    --------
+   profile                <not set>             None    None
+access_key                <not set>             None    None
+secret_key                <not set>             None    None
+    region                <not set>             None    None
+→credential（資格情報）を確認
+したのですが、profile/access_key/secret_key/regionに設定する値は、どこを引用すれば良いですか？
+引用:https://financial-it-engineer.hatenablog.com/entry/2020/04/14/121237
+
+
+
+——————————————以下、昨日作業分—————————————
 <2020/9/25>
 0.Lambda 関数については Python 3.8 で作成しています。
 Python 環境が無い方は、こちらなど、ご自身の環境へ Python をインストールしてください。
