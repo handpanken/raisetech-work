@@ -1,16 +1,4 @@
-<2020/9/26>
-18.macOS への AWS SAM CLI のインストール
-ステップ 5. AWS SAM CLI のインストール
-引用:https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
-→brew install aws-sam-cli/完了
-19.sam build
-→Build Succeeded
-20.sam deploy --guided
-引用
-→Error: Failed to create managed resources: Unable to locate credentials
-=エラーが発生しました。管理されたリソースの作成に失敗しました。資格情報を見つけることができません
-
-——————————————next—————————————
+<2020/10/1>
 21.
 aws configure list
       Name                    Value             Type    Location
@@ -23,38 +11,131 @@ secret_key                <not set>             None    None
 したのですが、profile/access_key/secret_key/regionに設定する値は、どこを引用すれば良いですか？
 引用:https://financial-it-engineer.hatenablog.com/entry/2020/04/14/121237
 
+22.aws configure実行・各設定
+→Default output format [None]: のリソース元は？
 
+★23.sam deploy --guided実行
+→Error: Failed to create/update the stack: jump-cut-automation, Waiter StackCreateComplete failed: Waiter encountered a terminal failure state★
 
-——————————————以下、昨日作業分—————————————
-<2020/9/25>
-0.Lambda 関数については Python 3.8 で作成しています。
-Python 環境が無い方は、こちらなど、ご自身の環境へ Python をインストールしてください。
-1.Pythonなどで利用するC言語環境として、Command Line Tools をインストール
-引用:https://www.python.jp/install/macos/install_python.html
-2.ターミナルを起動し、次のコマンドを実行します。
-$ gcc
-3.clang: error: no input files
-→gccコマンドがインストール済みで使える状態なので下記の作業は行わなくてもよい
-4.実行
-% /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-5.brew install python@3.8
-6.Python3.7を実行する python3.8 コマンドは、/usr/local/bin ディレクトリに登録されないので、次のように手動で登録
-→ln -s /usr/local/opt/python@3.8/bin/python3.8/usr/local/bin/python3.8
-7.python3.8 のように、コマンドファイル名で使い分けるようにします。  
-$ python3.8 
-Python 3.8.3 (default, Jul  8 2020, 14:27:55) [Clang 11.0.3 (clang-1103.0.32.62)] on darwin Type "help", "copyright", "credits" or "license" for more information. >>>
-8.macOS への AWS SAM CLI（サーバーレスアプリケーションの作成と管理を容易にするコマンドラインツール） のインストール
+24.牛島さんより
+“アクセスキーとシークレットキーについては、ステップ2で行った内容を思い出せば、どこから参照すればいいかわかるかなと！”
+→ステップ 2. 作成 IAM 管理者権限を持つユーザー参照
 引用:https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
-9.IAM アクセス許可の設定  
-## IAM
-https://608283427828.signin.aws.amazon.com/
-アクセスキー：AKIAY3IEEQP2HWVOAGVI
-シークレットアクセスキー：LrZC2Z3Q6bOVI76anXVhlcoim222YihYONSzFflJ
-pass:6106217PEP25FE
-10.Docker をインストールします。
-注意 Dockerは、アプリケーションをローカルでテストするための前提条件です。  
-→Docker をインストールします。
-AWS SAM CLI では、macOS Sierra 10.12 以降で動作する Docker がサポートされています。Docker をインストールするには、Install Docker Desktop for Mac を参照してください。
+
+25.A.IAM 管理者権限を持つユーザーについての参照先は？
+Q.最初のIAM管理者ユーザーおよびグループの作成 
+→この中のIAM ユーザーガイド.
+
+26.IAM 管理者権限を持つユーザー未作成かも
+“.IAM 管理者権限を持つユーザー作成開始”
+引用:https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/getting-started_create-admin-group.html
+
+27.
+<作成１>
+ルートユーザー を選択し AWS アカウントの E メールアドレスを入力して、アカウントの所有者としてIAM コンソールにサインイン
+
+28.
+aws iam get-policy コマンド
+→特定のポリシーの内容、確認
+jump-cut-automation % aws iam get-policy
+usage: aws [options] <command> <subcommand> [<subcommand> ...] [parameters]
+To see help text, you can run:
+
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+aws: error: the following arguments are required: --policy-arn
+
+29.やったことを振り返ると
+“9.IAM アクセス許可の設定 
+## IAM（gitリンク）”
+にて、IAM設定していたことを思い出す
+
+30.
+<作成２>
+作成する IAM 管理者ユーザーの請求データへのアクセスを有効にします。
+a.ナビゲーションバーでアカウント名を選択してから、[マイ アカウント] を選択します。 b.[IAM User and Role Access to Billing Information] の横で、[Edit] を選択します。 c.次に、[IAM アクセスのアクティベート] のチェックボックスをオンにして、[更新] を選択します。
+=結果“IAM ユーザー/ロールによる請求情報へのアクセスは有効になっています。”
+
+31.
+<作成３>
+ナビゲーションバーで [サービス] を選択し、[IAM] を選択して IAM ダッシュボードに戻ります。 
+1. ナビゲーションペインで [Users]、[Add user] の順に選択します。 
+2. [詳細] ページで、以下の操作を実行します。
+    * [User name] に、Administrator と入力します。 
+    * [AWS マネジメントコンソール access] のチェックボックスをオンにし、[Custom password] を選択して、新しいパスワードをテキストボックスに入力します→”pass 6106217PEP25Fe”
+    * AWS は、デフォルトで、新しいユーザーに対して初回のサインイン時に新しいパスワードを作成することを要求します。必要に応じて [User must create a new password at next sign-in (ユーザーは次回のサインイン時に新しいパスワードを作成する必要がある)] のチェックボックスをオフにして、新しいユーザーにサインイン後にパスワードをリセットすることを許可できます。 
+    * [Next: Permissions (次へ: アクセス許可)] を選択します。
+
+32.<作成4>
+1. [アクセス許可] ページで、以下を実行します。
+    * [Add user to group] を選択します。 
+    * [Create group] を選択します。 
+    * [グループの作成] ダイアログボックスで、[グループ名] に「Administrators」と入力します。 
+    * [AdministratorAccess] ポリシーのチェックボックスを選択します。 
+    * [グループの作成] を選択します。 
+    * グループのリストがあるページに戻り、新しいグループのチェックボックスをオンにします。新しいグループがリストに表示されない場合は、[Refresh (更新)] を選択します。 
+    * [次へ: タグ] を選択します。 
+2. (オプション) [タグ] ページで、タグをキー - 値のペアとしてアタッチして、メタデータをユーザーに追加します。詳細については、「IAM ユーザーとロールのタグ付け」を参照してください→キー:6106217PEP25Fe/値:Administrators
+
+33.<作成5>
+1. [Next: Review] を選択します。新しいユーザーに追加するグループメンバーシップを確認します。続行する準備ができたら、[Create user] を選択します。 
+2. (オプション) [完了] ページで、ユーザーのログイン情報を含む .csv ファイルをダウンロードするか、ログイン手順を含む E メールをユーザーに送信できます
+※ログイン手順を含む E メール内容※
+
+You now have access to the AWS Management Console for the account ending in 7828. ------
+
+Sign-in URL: https://608283427828.signin.aws.amazon.com/console
+User name: Administrator
+
+Your password will be provided separately by your AWS account administrator. 
+
+------
+
+Stay connected with AWS by creating a profile: https://pages.awscloud.com/IAM-communication-preferences.html
+
+<2020/10/3>
+
+34.牛島さんより
+“profileについては、最初にaws configureの設定すれば設定されると思いますが、そのあたりも試してみていただけると！”
+→上記<作成>手順で作成した内容元に、設定点確認
+
+35.aws configureの設定とは？
+→profile/最初にaws configureの設定すれば設定される
+＝aws configure set時に、入力する
+access_key/AKIAY3IEEQP2KBUNX6ZN
+引用:IAM ユーザーのアクセスキーを作成するには
+secret_key/iAe+0tNw0r/MGx+WGDcgc8G4MO2hQM1E7H3i5/Av
+引用:IAM ユーザーのアクセスキーを作成するには
+region/アジアパシフィック (東京)ap-northeast-1
+
+36.aws configureの設定手順
+→aws configure set参照
+・aws configure set region ap-northeast-1 --profile Administrator
+・aws configure set access_key **** --profile Administrator
+・aws configure set secret_key **** --profile Administrator
+（☆仮説）
+configにて、上記以外のキー設定手順、必要？
+
+37.sam deploy --guided
+→Error: Failed to create changeset for the stack: jump-cut-automation, An error occurred (ValidationError) when calling the CreateChangeSet operation: Stack:arn:aws:cloudformation:ap-northeast-1:608283427828:stack/jump-cut-automation/c24973f0-02d7-11eb-ba3e-067396fd8508 is in ROLLBACK_COMPLETE state and can not be updated.
+
+——————————————next—————————————
+（☆仮説）
+configにて、上記以外のキー設定手順、必要？
+
+——————————————以下、前回作業分—————————————
+<2020/9/26>
+18.macOS への AWS SAM CLI のインストール
+ステップ 5. AWS SAM CLI のインストール
+引用:https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
+→brew install aws-sam-cli/完了
+19.sam build
+→Build Succeeded
+20.sam deploy --guided
+引用
+→Error: Failed to create managed resources: Unable to locate credentials
+=エラーが発生しました。管理されたリソースの作成に失敗しました。資格情報を見つけることができません。
 
 ——————————————未解決—————————————
 
@@ -64,25 +145,3 @@ macOS でドライブを共有するには、File sharing を参照してくだ
 引用https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
 →binとは、Binary codeのことでようするに実行可能プログラム置き場ということ。バイナリということはコンパイル型の言語により作られたプログラムが置かれるのだろう。
 引用https://qiita.com/totzyuta/items/84d610f56129a186f0c5
-
-——————————————未解決—————————————
-
-
-12.AWS SAM CLI のインストール
-13.Lambda 関数にデプロイするアプリケーション パッケージをビルド
-sam build
-→zsh: command not found: sam
-14.シェルの変更のコマンドはchshコマンド(change shell)を用います。
-chsh -s /bin/zsh
-15.template.yaml 取得
-16.template.yaml が配置されているディレクトリに移動
-17.handpan@handpan-no-MacBook-Pro jump-cut-automation % chsh -s /bin/bash
-Changing shell for handpan.
-Password for handpan: 
-chsh: no changes made
-handpan@handpan-no-MacBook-Pro jump-cut-automation % echo $SHELL 
-/bin/zsh
-handpan@handpan-no-MacBook-Pro jump-cut-automation % 
-→chsh: no changes madeから
-/zsh/bashに変更されていない
-18.macOS Catalina クリーンインストール検討 
