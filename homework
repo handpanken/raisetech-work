@@ -1,3 +1,38 @@
+<2020/10/7>
+42.[samconfig.toml]:の設定
+プロジェクトの設定ファイルは、プロジェクトのルートディレクトリに、samconfig.toml として作成する必要があります。sam deploy --guided のようなコマンドを実行すると、このファイルが作成されます。これらのファイルは、TOML 形式で書き込まれます。
+＝samconfig.toml自動生成されていない
+引用:https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+→具体的には
+・必要な設定を事前にプロジェクトルートディレクトリにファイル（samconfig.toml）として保続しておく
+・-g, --guided オプションで対話的にデプロイをすすめることが可能
+引用:https://qiita.com/hayao_k/items/7827c3778a23c514e196
+
+——————————————next—————————————
+43.”問題なくsam deployが成功した”とされていますが
+sam deploy --guided実行時
+	SAM configuration file [samconfig.toml]: 
+	SAM configuration environment [default]: 
+の設定は、どうされましたか？
+
+★2.クライアントエラーのように聞こえます。
+スクリプトの内部を見て、各ステップを1つずつ起動できます。その後、この方法でやり直す
+ことをお勧めしdelete-all.shます。
+（やること）スクリプトが実行されると、コンソールにログインしてCloudformationスタックを確認☆
+——————————————検討—————————————
+・cd Downloads
+handpan@handpan-no-MacBook-Pro Downloads % cd jump-cut-automation
+handpan@handpan-no-MacBook-Pro jump-cut-automation % sam deploy --guided
+→このディレクトリ移動、必要？
+
+・38.の”プロジェクトディレクトリを共有ドライブにリスト”
+このプロジェクトディレクトリの格納先は、どこが適切？
+
+・sam deploy --guided/Error: Failed の改善策
+引用:https://github.com/aws/aws-sam-cli/issues/1658
+→https://ja.stackoverflow.com/search?q=sam+deploy+--guided　のあたり？
+
+——————————————以下、前回作業分—————————————
 <2020/10/1>
 21.
 aws configure list
@@ -119,29 +154,3 @@ configにて、上記以外のキー設定手順、必要？
 
 37.sam deploy --guided
 →Error: Failed to create changeset for the stack: jump-cut-automation, An error occurred (ValidationError) when calling the CreateChangeSet operation: Stack:arn:aws:cloudformation:ap-northeast-1:608283427828:stack/jump-cut-automation/c24973f0-02d7-11eb-ba3e-067396fd8508 is in ROLLBACK_COMPLETE state and can not be updated.
-
-——————————————next—————————————
-（☆仮説）
-configにて、上記以外のキー設定手順、必要？
-
-——————————————以下、前回作業分—————————————
-<2020/9/26>
-18.macOS への AWS SAM CLI のインストール
-ステップ 5. AWS SAM CLI のインストール
-引用:https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
-→brew install aws-sam-cli/完了
-19.sam build
-→Build Succeeded
-20.sam deploy --guided
-引用
-→Error: Failed to create managed resources: Unable to locate credentials
-=エラーが発生しました。管理されたリソースの作成に失敗しました。資格情報を見つけることができません。
-
-——————————————未解決—————————————
-
-11.共有ドライブを設定します。
-AWS SAM CLI では、プロジェクトディレクトリまたは親ディレクトリが共有ドライブにリストされている必要があります。
-macOS でドライブを共有するには、File sharing を参照してください。
-引用https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
-→binとは、Binary codeのことでようするに実行可能プログラム置き場ということ。バイナリということはコンパイル型の言語により作られたプログラムが置かれるのだろう。
-引用https://qiita.com/totzyuta/items/84d610f56129a186f0c5
