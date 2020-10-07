@@ -1,0 +1,283 @@
+handpan@handpan-no-MacBook-Pro jump-cut-automation % sam deploy --guided
+
+Configuring SAM deploy
+======================
+
+	Looking for config file [samconfig.toml] :  Found
+	Reading default arguments  :  Success
+
+	Setting default arguments for 'sam deploy'
+	=========================================
+	Stack Name [jump-cut-automation]: jump-cut-automation
+	AWS Region [ap-northeast-1]: ap-northeast-1
+	Parameter NoSoundCutDuration [0.2]: 0.2
+	#Shows you resources changes to be deployed and require a 'Y' to initiate deploy
+	Confirm changes before deploy [Y/n]: Y
+	#SAM needs permission to be able to create roles to connect to the resources in your template
+	Allow SAM CLI IAM role creation [Y/n]: Y
+	Save arguments to configuration file [Y/n]: Y
+	SAM configuration file [samconfig.toml]: samconfig.toml
+	SAM configuration environment [default]: default
+
+	Looking for resources needed for deployment: Found!
+
+		Managed S3 bucket: aws-sam-cli-managed-default-samclisourcebucket-138vukw9a0ro2
+		A different default S3 bucket can be set in samconfig.toml
+
+	Saved arguments to config file
+	Running 'sam deploy' for future deployments will use the parameters saved above.
+	The above parameters can be changed by modifying samconfig.toml
+	Learn more about samconfig.toml syntax at 
+	https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+
+	Deploying with following values
+	===============================
+	Stack name                 : jump-cut-automation
+	Region                     : ap-northeast-1
+	Confirm changeset          : True
+	Deployment s3 bucket       : aws-sam-cli-managed-default-samclisourcebucket-138vukw9a0ro2
+	Capabilities               : ["CAPABILITY_IAM"]
+	Parameter overrides        : {'NoSoundCutDuration': '0.2'}
+
+Initiating deployment
+=====================
+
+Waiting for changeset to be created..
+
+CloudFormation stack changeset
+-------------------------------------------------------------------------------------------------
+Operation                LogicalResourceId        ResourceType             Replacement            
+-------------------------------------------------------------------------------------------------
++ Add                    AccessPoint              AWS::EFS::AccessPoint    N/A                    
++ Add                    AnalyzeTranscribeFunct   AWS::IAM::Role           N/A                    
+                         ionRole                                                                  
++ Add                    AnalyzeTranscribeFunct   AWS::Lambda::Function    N/A                    
+                         ion                                                                      
++ Add                    CheckClippingStatusFun   AWS::IAM::Role           N/A                    
+                         ctionRole                                                                
++ Add                    CheckClippingStatusFun   AWS::Lambda::Function    N/A                    
+                         ction                                                                    
++ Add                    CheckTranscribeFunctio   AWS::IAM::Role           N/A                    
+                         nRole                                                                    
++ Add                    CheckTranscribeFunctio   AWS::Lambda::Function    N/A                    
+                         n                                                                        
++ Add                    ClipMovieFunctionRole    AWS::IAM::Role           N/A                    
++ Add                    ClipMovieFunctionSQSEv   AWS::Lambda::EventSour   N/A                    
+                         ent                      ceMapping                                       
++ Add                    ClipMovieFunction        AWS::Lambda::Function    N/A                    
++ Add                    ConcatMoviesFunctionRo   AWS::IAM::Role           N/A                    
+                         le                                                                       
++ Add                    ConcatMoviesFunction     AWS::Lambda::Function    N/A                    
++ Add                    DownloadSourceMovieFun   AWS::IAM::Role           N/A                    
+                         ctionRole                                                                
++ Add                    DownloadSourceMovieFun   AWS::Lambda::Function    N/A                    
+                         ction                                                                    
++ Add                    DynamoTable              AWS::DynamoDB::Table     N/A                    
++ Add                    EfsFileSystem            AWS::EFS::FileSystem     N/A                    
++ Add                    EfsLambdaSecurityGroup   AWS::EC2::SecurityGrou   N/A                    
+                                                  p                                               
++ Add                    IAMPassRolePolicy        AWS::IAM::ManagedPolic   N/A                    
+                                                  y                                               
++ Add                    InternetGatewayAttachm   AWS::EC2::VPCGatewayAt   N/A                    
+                         ent                      tachment                                        
++ Add                    InternetGateway          AWS::EC2::InternetGate   N/A                    
+                                                  way                                             
++ Add                    JumpCutStateMachineRol   AWS::IAM::Role           N/A                    
+                         e                                                                        
++ Add                    JumpCutStateMachine      AWS::StepFunctions::St   N/A                    
+                                                  ateMachine                                      
++ Add                    MountTargetA             AWS::EFS::MountTarget    N/A                    
++ Add                    MountTargetB             AWS::EFS::MountTarget    N/A                    
++ Add                    NATGatewayAEip           AWS::EC2::EIP            N/A                    
++ Add                    NATGatewayA              AWS::EC2::NatGateway     N/A                    
++ Add                    NATGatewayBEip           AWS::EC2::EIP            N/A                    
++ Add                    NATGatewayB              AWS::EC2::NatGateway     N/A                    
++ Add                    PrivateRouteA            AWS::EC2::Route          N/A                    
++ Add                    PrivateRouteB            AWS::EC2::Route          N/A                    
++ Add                    PrivateRouteTableA       AWS::EC2::RouteTable     N/A                    
++ Add                    PrivateRouteTableB       AWS::EC2::RouteTable     N/A                    
++ Add                    PrivateSubnetARouteTab   AWS::EC2::SubnetRouteT   N/A                    
+                         leAssociation            ableAssociation                                 
++ Add                    PrivateSubnetA           AWS::EC2::Subnet         N/A                    
++ Add                    PrivateSubnetBRouteTab   AWS::EC2::SubnetRouteT   N/A                    
+                         leAssociation            ableAssociation                                 
++ Add                    PrivateSubnetB           AWS::EC2::Subnet         N/A                    
++ Add                    PublicRouteA             AWS::EC2::Route          N/A                    
++ Add                    PublicRouteB             AWS::EC2::Route          N/A                    
++ Add                    PublicRouteTableA        AWS::EC2::RouteTable     N/A                    
++ Add                    PublicRouteTableB        AWS::EC2::RouteTable     N/A                    
++ Add                    PublicSubnetARouteTabl   AWS::EC2::SubnetRouteT   N/A                    
+                         eAssociation             ableAssociation                                 
++ Add                    PublicSubnetA            AWS::EC2::Subnet         N/A                    
++ Add                    PublicSubnetBRouteTabl   AWS::EC2::SubnetRouteT   N/A                    
+                         eAssociation             ableAssociation                                 
++ Add                    PublicSubnetB            AWS::EC2::Subnet         N/A                    
++ Add                    S3InputBucket            AWS::S3::Bucket          N/A                    
++ Add                    S3OutputBucket           AWS::S3::Bucket          N/A                    
++ Add                    SqsQueue                 AWS::SQS::Queue          N/A                    
++ Add                    StartStateMachineFunct   AWS::Lambda::Permissio   N/A                    
+                         ionCreateObjectPermiss   n                                               
+                         ion                                                                      
++ Add                    StartStateMachineFunct   AWS::IAM::Role           N/A                    
+                         ionRole                                                                  
++ Add                    StartStateMachineFunct   AWS::Lambda::Function    N/A                    
+                         ion                                                                      
++ Add                    StartTranscribeFunctio   AWS::IAM::Role           N/A                    
+                         nRole                                                                    
++ Add                    StartTranscribeFunctio   AWS::Lambda::Function    N/A                    
+                         n                                                                        
++ Add                    UploadMovieFunctionRol   AWS::IAM::Role           N/A                    
+                         e                                                                        
++ Add                    UploadMovieFunction      AWS::Lambda::Function    N/A                    
++ Add                    Vpc                      AWS::EC2::VPC            N/A                    
+-------------------------------------------------------------------------------------------------
+
+Changeset created successfully. arn:aws:cloudformation:ap-northeast-1:608283427828:changeSet/samcli-deploy1602036611/cf9c8d44-dfc8-442d-b1f4-98cc3919dac6
+
+
+Previewing CloudFormation changeset before deployment
+======================================================
+Deploy this changeset? [y/N]: y
+
+2020-10-07 11:11:16 - Waiting for stack create/update to complete
+
+CloudFormation events from changeset
+-------------------------------------------------------------------------------------------------
+ResourceStatus           ResourceType             LogicalResourceId        ResourceStatusReason   
+-------------------------------------------------------------------------------------------------
+CREATE_IN_PROGRESS       AWS::EC2::EIP            NATGatewayAEip           -                      
+CREATE_IN_PROGRESS       AWS::EFS::FileSystem     EfsFileSystem            -                      
+CREATE_IN_PROGRESS       AWS::SQS::Queue          SqsQueue                 -                      
+CREATE_IN_PROGRESS       AWS::S3::Bucket          S3OutputBucket           -                      
+CREATE_IN_PROGRESS       AWS::EC2::InternetGate   InternetGateway          -                      
+                         way                                                                      
+CREATE_IN_PROGRESS       AWS::IAM::ManagedPolic   IAMPassRolePolicy        -                      
+                         y                                                                        
+CREATE_IN_PROGRESS       AWS::EC2::EIP            NATGatewayBEip           -                      
+CREATE_IN_PROGRESS       AWS::EC2::EIP            NATGatewayAEip           Resource creation      
+                                                                           Initiated              
+CREATE_IN_PROGRESS       AWS::DynamoDB::Table     DynamoTable              -                      
+CREATE_IN_PROGRESS       AWS::SQS::Queue          SqsQueue                 Resource creation      
+                                                                           Initiated              
+CREATE_IN_PROGRESS       AWS::EC2::InternetGate   InternetGateway          Resource creation      
+                         way                                               Initiated              
+CREATE_IN_PROGRESS       AWS::IAM::Role           StartStateMachineFunct   -                      
+                                                  ionRole                                         
+CREATE_IN_PROGRESS       AWS::IAM::Role           CheckTranscribeFunctio   -                      
+                                                  nRole                                           
+CREATE_IN_PROGRESS       AWS::IAM::Role           StartTranscribeFunctio   -                      
+                                                  nRole                                           
+CREATE_IN_PROGRESS       AWS::IAM::Role           CheckTranscribeFunctio   Did not have IAM       
+                                                  nRole                    permissions to process 
+                                                                           tags on AWS::IAM::Role 
+                                                                           resource.              
+CREATE_IN_PROGRESS       AWS::IAM::Role           StartStateMachineFunct   Did not have IAM       
+                                                  ionRole                  permissions to process 
+                                                                           tags on AWS::IAM::Role 
+                                                                           resource.              
+CREATE_IN_PROGRESS       AWS::IAM::Role           StartTranscribeFunctio   Did not have IAM       
+                                                  nRole                    permissions to process 
+                                                                           tags on AWS::IAM::Role 
+                                                                           resource.              
+CREATE_IN_PROGRESS       AWS::IAM::ManagedPolic   IAMPassRolePolicy        Resource creation      
+                         y                                                 Initiated              
+CREATE_IN_PROGRESS       AWS::EC2::EIP            NATGatewayBEip           Resource creation      
+                                                                           Initiated              
+CREATE_IN_PROGRESS       AWS::DynamoDB::Table     DynamoTable              Resource creation      
+                                                                           Initiated              
+CREATE_IN_PROGRESS       AWS::S3::Bucket          S3OutputBucket           Resource creation      
+                                                                           Initiated              
+CREATE_FAILED            AWS::IAM::Role           StartTranscribeFunctio   API: iam:CreateRole    
+                                                  nRole                    User: arn:aws:iam::608 
+                                                                           283427828:user/udemy   
+                                                                           is not authorized to   
+                                                                           perform:               
+                                                                           iam:CreateRole on      
+                                                                           resource: arn:aws:iam: 
+                                                                           :608283427828:role/jum 
+                                                                           p-cut-automation-Start 
+                                                                           TranscribeFunctionRole 
+                                                                           -CPCVYZDZOE25 with an  
+                                                                           explicit deny          
+CREATE_COMPLETE          AWS::SQS::Queue          SqsQueue                 -                      
+CREATE_FAILED            AWS::EFS::FileSystem     EfsFileSystem            Resource creation      
+                                                                           cancelled              
+CREATE_FAILED            AWS::S3::Bucket          S3OutputBucket           Resource creation      
+                                                                           cancelled              
+CREATE_FAILED            AWS::EC2::InternetGate   InternetGateway          Resource creation      
+                         way                                               cancelled              
+CREATE_FAILED            AWS::IAM::ManagedPolic   IAMPassRolePolicy        Resource creation      
+                         y                                                 cancelled              
+CREATE_FAILED            AWS::EC2::EIP            NATGatewayAEip           Resource creation      
+                                                                           cancelled              
+CREATE_FAILED            AWS::EC2::EIP            NATGatewayBEip           Resource creation      
+                                                                           cancelled              
+CREATE_FAILED            AWS::DynamoDB::Table     DynamoTable              Resource creation      
+                                                                           cancelled              
+CREATE_FAILED            AWS::IAM::Role           StartStateMachineFunct   API: iam:CreateRole    
+                                                  ionRole                  User: arn:aws:iam::608 
+                                                                           283427828:user/udemy   
+                                                                           is not authorized to   
+                                                                           perform:               
+                                                                           iam:CreateRole on      
+                                                                           resource: arn:aws:iam: 
+                                                                           :608283427828:role/jum 
+                                                                           p-cut-automation-Start 
+                                                                           StateMachineFunctionRo 
+                                                                           le-PFXPUJEP1FAU with   
+                                                                           an explicit deny       
+CREATE_FAILED            AWS::IAM::Role           CheckTranscribeFunctio   API: iam:CreateRole    
+                                                  nRole                    User: arn:aws:iam::608 
+                                                                           283427828:user/udemy   
+                                                                           is not authorized to   
+                                                                           perform:               
+                                                                           iam:CreateRole on      
+                                                                           resource: arn:aws:iam: 
+                                                                           :608283427828:role/jum 
+                                                                           p-cut-automation-Check 
+                                                                           TranscribeFunctionRole 
+                                                                           -1LZX6DFJVWX3F with an 
+                                                                           explicit deny          
+ROLLBACK_IN_PROGRESS     AWS::CloudFormation::S   jump-cut-automation      The following          
+                         tack                                              resource(s) failed to  
+                                                                           create:                
+                                                                           [InternetGateway,      
+                                                                           NATGatewayAEip,        
+                                                                           EfsFileSystem,         
+                                                                           NATGatewayBEip,        
+                                                                           DynamoTable, CheckTran 
+                                                                           scribeFunctionRole,    
+                                                                           S3OutputBucket, StartS 
+                                                                           tateMachineFunctionRol 
+                                                                           e, IAMPassRolePolicy,  
+                                                                           StartTranscribeFunctio 
+                                                                           nRole]. . Rollback     
+                                                                           requested by user.     
+DELETE_IN_PROGRESS       AWS::DynamoDB::Table     DynamoTable              -                      
+DELETE_IN_PROGRESS       AWS::S3::Bucket          S3OutputBucket           -                      
+DELETE_IN_PROGRESS       AWS::EC2::InternetGate   InternetGateway          -                      
+                         way                                                                      
+DELETE_IN_PROGRESS       AWS::SQS::Queue          SqsQueue                 -                      
+DELETE_IN_PROGRESS       AWS::EFS::FileSystem     EfsFileSystem            -                      
+DELETE_COMPLETE          AWS::IAM::Role           CheckTranscribeFunctio   -                      
+                                                  nRole                                           
+DELETE_COMPLETE          AWS::IAM::Role           StartTranscribeFunctio   -                      
+                                                  nRole                                           
+DELETE_IN_PROGRESS       AWS::EC2::EIP            NATGatewayAEip           -                      
+DELETE_COMPLETE          AWS::IAM::Role           StartStateMachineFunct   -                      
+                                                  ionRole                                         
+DELETE_IN_PROGRESS       AWS::IAM::ManagedPolic   IAMPassRolePolicy        -                      
+                         y                                                                        
+DELETE_IN_PROGRESS       AWS::EC2::EIP            NATGatewayBEip           -                      
+DELETE_COMPLETE          AWS::S3::Bucket          S3OutputBucket           -                      
+DELETE_COMPLETE          AWS::EC2::EIP            NATGatewayAEip           -                      
+DELETE_COMPLETE          AWS::EC2::EIP            NATGatewayBEip           -                      
+DELETE_COMPLETE          AWS::IAM::ManagedPolic   IAMPassRolePolicy        -                      
+                         y                                                                        
+DELETE_COMPLETE          AWS::EFS::FileSystem     EfsFileSystem            -                      
+DELETE_COMPLETE          AWS::EC2::InternetGate   InternetGateway          -                      
+                         way                                                                      
+DELETE_COMPLETE          AWS::DynamoDB::Table     DynamoTable              -                      
+DELETE_COMPLETE          AWS::SQS::Queue          SqsQueue                 -                      
+ROLLBACK_COMPLETE        AWS::CloudFormation::S   jump-cut-automation      -                      
+                         tack                                                                     
