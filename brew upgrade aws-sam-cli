@@ -1,0 +1,95 @@
+handpan@handpan-no-MacBook-Pro Downloads % cd jump-cut-automation
+handpan@handpan-no-MacBook-Pro jump-cut-automation % brew upgrade aws-sam-cli
+Updating Homebrew...
+==> Auto-updated Homebrew!
+Updated 2 taps (homebrew/core and aws/tap).
+==> New Formulae
+asroute                    libsm                      libxres
+aws/tap/container-tools    libx11                     libxscrnsaver
+cloudformation-guard       libxau                     libxshmfence
+commitizen                 libxaw                     libxt
+fleet-cli                  libxaw3d                   libxtst
+flit                       libxcb                     libxv
+font-util                  libxcomposite              libxvmc
+git-hound                  libxcursor                 libxxf86dga
+gitql                      libxdamage                 libxxf86vm
+halide                     libxdmcp                   python@3.9
+libaio                     libxext                    server-go
+libdmx                     libxfixes                  shtools
+libfontenc                 libxfont                   structurizr-cli
+libfs                      libxft                     trunk
+libgccjit                  libxi                      util-macros
+libhandy                   libxinerama                x86_64-elf-gdb
+libice                     libxkbfile                 xcb-proto
+libmnl                     libxmu                     xdpyinfo
+libnetfilter-queue         libxpm                     xorgproto
+libnfnetlink               libxrandr                  xtrans
+libpthread-stubs           libxrender
+==> Updated Formulae
+Updated 681 formulae.
+==> Deleted Formulae
+xu4
+
+==> Upgrading 1 outdated package:
+aws/tap/aws-sam-cli 1.3.2 -> 1.6.2
+==> Upgrading aws/tap/aws-sam-cli 1.3.2 -> 1.6.2 
+==> Downloading https://homebrew.bintray.com/bottles/python%403.8-3.8.6.catalina
+==> Downloading from https://d29vzk4ow07wi7.cloudfront.net/96e123a1befbb1a2f9857
+######################################################################## 100.0%
+==> Downloading https://github.com/aws/aws-sam-cli/releases/download/v1.6.2//aws
+==> Downloading from https://github-production-release-asset-2e65be.s3.amazonaws
+######################################################################## 100.0%
+==> Installing dependencies for aws/tap/aws-sam-cli: python@3.8
+==> Installing aws/tap/aws-sam-cli dependency: python@3.8
+==> Pouring python@3.8-3.8.6.catalina.bottle.tar.gz
+==> /usr/local/Cellar/python@3.8/3.8.6/bin/python3 -s setup.py --no-user-cfg ins
+==> /usr/local/Cellar/python@3.8/3.8.6/bin/python3 -s setup.py --no-user-cfg ins
+==> /usr/local/Cellar/python@3.8/3.8.6/bin/python3 -s setup.py --no-user-cfg ins
+==> Caveats
+Python has been installed as
+  /usr/local/bin/python3
+
+Unversioned symlinks `python`, `python-config`, `pip` etc. pointing to
+`python3`, `python3-config`, `pip3` etc., respectively, have been installed into
+  /usr/local/opt/python@3.8/libexec/bin
+
+You can install Python packages with
+  pip3 install <package>
+They will install into the site-package directory
+  /usr/local/lib/python3.8/site-packages
+
+See: https://docs.brew.sh/Homebrew-and-Python
+==> Summary
+🍺  /usr/local/Cellar/python@3.8/3.8.6: 4,341 files, 69.7MB
+==> Installing aws/tap/aws-sam-cli
+==> Pouring aws-sam-cli-1.6.2.sierra.bottle.tar.gz
+🍺  /usr/local/Cellar/aws-sam-cli/1.6.2: 4,081 files, 93.9MB
+Removing: /usr/local/Cellar/aws-sam-cli/1.3.2... (4,913 files, 91.4MB)
+Removing: /Users/handpan/Library/Caches/Homebrew/aws-sam-cli--1.3.2.sierra.bottle.tar.gz... (20MB)
+==> Caveats
+==> python@3.8
+Python has been installed as
+  /usr/local/bin/python3
+
+Unversioned symlinks `python`, `python-config`, `pip` etc. pointing to
+`python3`, `python3-config`, `pip3` etc., respectively, have been installed into
+  /usr/local/opt/python@3.8/libexec/bin
+
+You can install Python packages with
+  pip3 install <package>
+They will install into the site-package directory
+  /usr/local/lib/python3.8/site-packages
+handpan@handpan-no-MacBook-Pro jump-cut-automation % ==> python@3.8
+Python has been installed as
+  /usr/local/bin/python3
+
+Unversioned symlinks `python`, `python-config`, `pip` etc. pointing to
+`python3`, `python3-config`, `pip3` etc., respectively, have been installed into
+  /usr/local/opt/python@3.8/libexec/bin
+
+You can install Python packages with
+  pip3 install <package>
+They will install into the site-package directory
+  /usr/local/lib/python3.8/site-packages
+zsh: parse error near `\n'
+handpan@handpan-no-MacBook-Pro jump-cut-automation % 
