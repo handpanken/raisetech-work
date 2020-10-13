@@ -1,39 +1,97 @@
-<2020/10/7>
-42.[samconfig.toml]:の設定
-プロジェクトの設定ファイルは、プロジェクトのルートディレクトリに、samconfig.toml として作成する必要があります。sam deploy --guided のようなコマンドを実行すると、このファイルが作成されます。これらのファイルは、TOML 形式で書き込まれます。
-＝samconfig.toml自動生成されていない
-引用:https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
-→具体的には
-・必要な設定を事前にプロジェクトルートディレクトリにファイル（samconfig.toml）として保続しておく
-・-g, --guided オプションで対話的にデプロイをすすめることが可能
-引用:https://qiita.com/hayao_k/items/7827c3778a23c514e196
+【AWS/動画作成】
 
-——————————————next—————————————
-43.”問題なくsam deployが成功した”とされていますが
-sam deploy --guided実行時
-	SAM configuration file [samconfig.toml]: 
-	SAM configuration environment [default]: 
-の設定は、どうされましたか？
+引用元
+AWS を駆使して動画に YouTuber 感をちょい足しするソリューションを作ってみる - builders.flash☆ - 変化を求めるデベロッパーを応援するウェブマガジン | AWS
+<必要なサービス>
+◉Transcribe
+音声/動画ファイルを入力すると、音声データをもとに発話した内容をテキストへ書き起こすサービス。
+◉lambda
+(Lambdaで)EFS をマウント（接続した機器を認識させて使える状態）することで…
+・より大きなファイルへのバッチ処理
+・Lambda関数間でのファイル共有
+といった、ユースケースにも対応。
+→(動画ファイルのような)比較的サイズの大きいファイルを取り扱うユースケース
+=Lambdaで処理をしつつ、結果をEFS に保存する。
+---lambdaとは？---
+￼
+---EFSの使用例とは？---
+￼
+(例:WordPressを使ったオンプレミスのWebサイトの運用)
+1.サーバー1台で運用
+2.スケーリングや高可用性のためにサーバー"複数台"での運用に切り替え検討
+3.アップロードした画像やプラグインなどのファイルをサーバー間で共有を求められる
+4.オンプレミスのNetwork File System (NFS)サーバーなどを自前で構築・運用することも可能ですが…マネージドNFSサービス（=EFS）を利用することによって、NFSサーバーの構築・運用の負荷を軽減可能
+引用: https://business.ntt-east.co.jp/content/cloudsolution/column-64.html
 
-★2.クライアントエラーのように聞こえます。
-スクリプトの内部を見て、各ステップを1つずつ起動できます。その後、この方法でやり直す
-ことをお勧めしdelete-all.shます。
-（やること）スクリプトが実行されると、コンソールにログインしてCloudformationスタックを確認☆
-——————————————検討—————————————
-・cd Downloads
-handpan@handpan-no-MacBook-Pro Downloads % cd jump-cut-automation
-handpan@handpan-no-MacBook-Pro jump-cut-automation % sam deploy --guided
-→このディレクトリ移動、必要？
+<2020/9/25>
+0.Lambda 関数については Python 3.8 で作成しています。
+Python 環境が無い方は、こちらなど、ご自身の環境へ Python をインストールしてください。
+1.Pythonなどで利用するC言語環境として、Command Line Tools をインストール
+引用:https://www.python.jp/install/macos/install_python.html
+2.ターミナルを起動し、次のコマンドを実行します。
+$ gcc
+3.clang: error: no input files
+→gccコマンドがインストール済みで使える状態なので下記の作業は行わなくてもよい
+4.実行
+% /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+5.brew install python@3.8
+6.Python3.7を実行する python3.8 コマンドは、/usr/local/bin ディレクトリに登録されないので、次のように手動で登録
+→ln -s /usr/local/opt/python@3.8/bin/python3.8/usr/local/bin/python3.8
+7.python3.8 のように、コマンドファイル名で使い分けるようにします。  
+$ python3.8 
+Python 3.8.3 (default, Jul  8 2020, 14:27:55) [Clang 11.0.3 (clang-1103.0.32.62)] on darwin Type "help", "copyright", "credits" or "license" for more information. >>>
+8.macOS への AWS SAM CLI（サーバーレスアプリケーションの作成と管理を容易にするコマンドラインツール） のインストール
+引用:https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
+9.IAM アクセス許可の設定  
+## IAM
+https://608283427828.signin.aws.amazon.com/
+アクセスキー：AKIAY3IEEQP2HWVOAGVI
+シークレットアクセスキー：LrZC2Z3Q6bOVI76anXVhlcoim222YihYONSzFflJ
+pass:6106217PEP25FE
+10.Docker をインストールします。
+注意 Dockerは、アプリケーションをローカルでテストするための前提条件です。  
+→Docker をインストールします。
+AWS SAM CLI では、macOS Sierra 10.12 以降で動作する Docker がサポートされています。Docker をインストールするには、Install Docker Desktop for Mac を参照してください。
 
-・38.の”プロジェクトディレクトリを共有ドライブにリスト”
-このプロジェクトディレクトリの格納先は、どこが適切？
+——————————————未解決—————————————
 
-・sam deploy --guided/Error: Failed の改善策
-引用:https://github.com/aws/aws-sam-cli/issues/1658
-→https://ja.stackoverflow.com/search?q=sam+deploy+--guided　のあたり？
+11.共有ドライブを設定します。
+AWS SAM CLI では、プロジェクトディレクトリまたは親ディレクトリが共有ドライブにリストされている必要があります。
+macOS でドライブを共有するには、File sharing を参照してください。
+引用https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
+→binとは、Binary codeのことでようするに実行可能プログラム置き場ということ。バイナリということはコンパイル型の言語により作られたプログラムが置かれるのだろう。
+引用https://qiita.com/totzyuta/items/84d610f56129a186f0c5
 
-——————————————以下、前回作業分—————————————
-<2020/10/1>
+——————————————未解決—————————————
+
+
+12.AWS SAM CLI のインストール
+13.Lambda 関数にデプロイするアプリケーション パッケージをビルド
+sam build
+→zsh: command not found: sam
+14.シェルの変更のコマンドはchshコマンド(change shell)を用います。
+chsh -s /bin/zsh
+15.template.yaml 取得
+16.template.yaml が配置されているディレクトリに移動
+17.chsh -s /bin/bash
+Changing shell for handpan.
+Password for handpan: 
+handpan@handpan-no-MacBook-Pro jump-cut-automation % sam build
+zsh: command not found: sam
+→/zsh/bashに変更されていない
+
+<2020/9/26>
+18.macOS への AWS SAM CLI のインストール
+ステップ 5. AWS SAM CLI のインストール
+引用:https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
+→brew install aws-sam-cli/完了
+19.sam build
+→Build Succeeded
+20.sam deploy --guided
+引用
+→Error: Failed to create managed resources: Unable to locate credentials
+=エラーが発生しました。管理されたリソースの作成に失敗しました。資格情報を見つけることができません
+
 21.
 aws configure list
       Name                    Value             Type    Location
@@ -45,6 +103,8 @@ secret_key                <not set>             None    None
 →credential（資格情報）を確認
 したのですが、profile/access_key/secret_key/regionに設定する値は、どこを引用すれば良いですか？
 引用:https://financial-it-engineer.hatenablog.com/entry/2020/04/14/121237
+
+<2020/10/1>
 
 22.aws configure実行・各設定
 →Default output format [None]: のリソース元は？
@@ -147,10 +207,168 @@ region/アジアパシフィック (東京)ap-northeast-1
 36.aws configureの設定手順
 →aws configure set参照
 ・aws configure set region ap-northeast-1 --profile Administrator
-・aws configure set access_key **** --profile Administrator
-・aws configure set secret_key **** --profile Administrator
+・aws configure set access_key AKIAY3IEEQP2KBUNX6ZN --profile Administrator
+・aws configure set secret_key iAe+0tNw0r/MGx+WGDcgc8G4MO2hQM1E7H3i5/Av --profile Administrator
 （☆仮説）
 configにて、上記以外のキー設定手順、必要？
 
 37.sam deploy --guided
 →Error: Failed to create changeset for the stack: jump-cut-automation, An error occurred (ValidationError) when calling the CreateChangeSet operation: Stack:arn:aws:cloudformation:ap-northeast-1:608283427828:stack/jump-cut-automation/c24973f0-02d7-11eb-ba3e-067396fd8508 is in ROLLBACK_COMPLETE state and can not be updated.
+
+<2020/10/4>
+
+38.未解決の対処と仮説
+→sam deploy --guided/Error: Failed の改善策
+やること：プロジェクトディレクトリを共有ドライブにリスト
+——————————————未解決—————————————
+
+11.共有ドライブを設定します。
+AWS SAM CLI では、プロジェクトディレクトリまたは親ディレクトリが共有ドライブにリストされている必要があります。
+macOS でドライブを共有するには、File sharing を参照してください。
+引用https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
+→binとは、Binary codeのことでようするに実行可能プログラム置き場ということ。バイナリということはコンパイル型の言語により作られたプログラムが置かれるのだろう。
+引用https://qiita.com/totzyuta/items/84d610f56129a186f0c5
+
+39.ボリュームのマウントには、/Usersディレクトリの外部にあるプロジェクト用の共有ドライブが必要 です。
+doccker> [ 設定] > [リソース] > [ファイル共有]に移動し、Dockerfileとボリュームを含むドライブを共有します。
+→/Users/handpan/Downloads/jump-cut-automation
+共有完了
+
+40.sam deploy --guided
+→Stack Name [sam-app]: template.yml
+とすると、エラー
+エラー詳細: 'template.yml' at 'stackName' が制約を満たすことができませんでした。正規表現パターンを満たす必要があります。
+
+41.sam deploy --guided
+	Setting default arguments for 'sam deploy'
+	入力時
+	SAM configuration file [samconfig.toml]: を求められる
+
+<2020/10/7>
+42.[samconfig.toml]:の設定
+プロジェクトの設定ファイルは、プロジェクトのルートディレクトリに、samconfig.toml として作成する必要があります。sam deploy --guided のようなコマンドを実行すると、このファイルが作成されます。これらのファイルは、TOML 形式で書き込まれます。
+＝samconfig.toml自動生成されていない
+引用:https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+→具体的には
+・必要な設定を事前にプロジェクトルートディレクトリにファイル（samconfig.toml）として保続しておく
+・-g, --guided オプションで対話的にデプロイをすすめることが可能
+引用:https://qiita.com/hayao_k/items/7827c3778a23c514e196
+
+43.”問題なくsam deployが成功した”とされていますが
+sam deploy --guided実行時
+	SAM configuration file [samconfig.toml]: 
+	SAM configuration environment [default]: 
+の設定は、どうされましたか？
+※※牛島さん確認済.2020/10/9※※
+→変更することなく、そのままの設定を使いましたよ！
+
+44.sam deploy --guided実行時
+“jump-cut-automation”倫理IDで
+The following resource(s) failed to create: [InternetGateway, NATGatewayAEip, NATGatewayBEip, DynamoTable, Vpc, CheckTranscribeFunctionRole, S3OutputBucket, StartStateMachineFunctionRole, IAMPassRolePolicy, StartTranscribeFunctionRole]. . Rollback requested by user.
+→（cfnコンソールで）jump-cut-automationのステータス”ROLLBACK_IN_PROGRESS”について検索
+→解決できず、根本問題”sam deploy エラー”で検索
+45.その”sam deploy エラー”見直し過程で
+・38.の”プロジェクトディレクトリを共有ドライブにリスト”
+このプロジェクトディレクトリの格納先、適切な場所はどこ？
+と思い
+jimp-cut-automationディレクトリ→情報→共有フォルダを選択→このフォルダを公開する為“ファイル共有”を選択→共有フォルダを選択
+46.再度”sam deploy --guided ”
+→ROLLBACK_COMPLETE状態で、更新できません。
+47.ROLLBACK_COMPLETE状態から更新する
+→コンソールよりスタック削除を行う
+48.sam deploy --guided実行
+→エラーが発生しました。スタックの作成/更新に失敗しました: jump-cut-automation、Waiter StackCreateCompleteに失敗しました。Waiterがターミナル障害状態になりました（全文こちら）
+
+<2020/10/10>
+49.Waiterのターミナル障害状態を改善
+→（改善のヒントは）CloudFormationサービスの「イベント」タブでこのエラーを発見する？
+
+50.StartTranscribeFunctionRole
+CREATE_FAILED
+→API: iam:CreateRole User: arn:aws:iam::608283427828:user/udemyが実行する権限がありません
+→sam deployする為に、IAMへ実行権限を付与する方法とは？
+（権限付与する名称は？）
+
+51.（この途中で）
+ふと、brew upgrade aws-sam-cliを試みる
+https://github.com/handpanken/raisetech-work/blob/86ba59887c99c9479be98335cc049097643bcd74/brew%20upgrade%20aws-sam-cli#L2
+→（この後、再度brew upgrade aws-sam-cliにて）
+aws/tap/aws-sam-cli 1.6.2 already installed　表示される
+
+52.sam deploy --guided
+→ROLLBACK_COMPLETE の状態にあり、更新できません。
+→”ROLLBACK_COMPLETE 更新出来ない”検索・対処法さがす
+
+53.対処法:stackを削除
+引用:https://encr.jp/blog/posts/20200325_lunch/
+→再度sam deploy --guided
+結果:エラーが発生しました。スタックの作成/更新に失敗しました: jump-cut-automation、Waiter StackCreateCompleteに失敗しました。Waiterがターミナル障害状態になりました
+
+<2020/10/12>
+54.sam deploy --guided時に
+API: iam:CreateRoleが許可されていません。
+→”API: iam:CreateRole 設定”として、アクセス許可を委任するロールとして、使用中のIAMへ設定
+→原因:ResourceTag/key-name 条件キーを使用してロールにアタッチされたタグに基づいてロールを渡すアクセス権限を制限することはできません。詳細については、「AWS のリソースへのアクセスの制御」を参照してください。
+
+55.IAM ポリシーの編集でesourceTag/key-name 条件キーの名前編集→結果”添付画像1”で”次の一手”が含まれている？
+
+<2020/10/13>
+——————————————next—————————————
+56.引用元
+AWS を駆使して動画に YouTuber 感をちょい足しするソリューションを作ってみる - builders.flash☆ - 変化を求めるデベロッパーを応援するウェブマガジン | AWS
+手順の冒頭で”必須条件”を再確認
+※未実施※1.当ソリューションのソースコード、再DL
+→ここで得たソースコードの保存先ディレクトリ指定は、どうされましたか？
+2.Python 環境確認
+Python 2.7.16
+3.AWS SAM CLI のインストール確認
+brew upgrade aws-sam-cli
+aws/tap/aws-sam-cli 1.6.2 already installed
+4.sam build
+Build Succeeded
+
+Built Artifacts  : .aws-sam/build
+Built Template   : .aws-sam/build/template.yaml
+
+Commands you can use next
+=========================
+[*] Invoke Function: sam local invoke
+[*] Deploy: sam deploy --guided
+5.sam deploy --guided
+➡︎”Error: Failed to create/update the stack: jump-cut-automation, Waiter StackCreateComplete failed: Waiter encountered a terminal failure state”
+
+57.Waiterのターミナル障害状態を改善
+→（改善のヒントは）CloudFormationサービスの「イベント」タブでこのエラーを発見する？
+
+58.StartTranscribeFunctionRole
+CREATE_FAILED
+→API: iam:CreateRole User: arn:aws:iam::608283427828:user/udemyが実行する権限がありません
+→sam deployする為に、IAMへ実行権限を付与する方法とは？
+（権限付与する名称は？）
+
+
+（エラー原因/仮説）
+GetAttできないものをGetAttしようとしています。
+GetAttしている対象に間違いがないか確認してください。
+引用:https://encr.jp/blog/posts/20200325_lunch/
+→GetAttの見直しとは？
+
+★2.クライアントエラーのように聞こえます。
+スクリプトの内部を見て、各ステップを1つずつ起動できます。その後、この方法でやり直す
+ことをお勧めしdelete-all.shます。
+（やること）スクリプトが実行されると、コンソールにログインしてCloudformationスタックを確認☆
+——————————————検討/確認中—————————————
+・sam deploy --guided コマンドを実行すると、AWS SAM CLI は必要なパラメータを自動的に設定ファイルに追加
+→AWS SAM CLI上での異常？
+
+・50.StartTranscribeFunctionRole
+CREATE_FAILED
+→API: iam:CreateRole User: arn:aws:iam::608283427828:user/udemyが実行する権限がありません
+→sam deployする為に、IAMへ実行権限を付与する方法とは？
+（権限付与する名称は？）
+
+56.引用元
+AWS を駆使して動画に YouTuber 感をちょい足しするソリューションを作ってみる - builders.flash☆ - 変化を求めるデベロッパーを応援するウェブマガジン | AWS
+手順の冒頭で”必須条件”を再確認
+1.当ソリューションのソースコード、再DL
+→ここで得たソースコードの保存先ディレクトリ指定は、どうされましたか？
