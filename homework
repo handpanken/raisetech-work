@@ -313,7 +313,6 @@ API: iam:CreateRoleが許可されていません。
 55.IAM ポリシーの編集でesourceTag/key-name 条件キーの名前編集→結果”添付画像1”で”次の一手”が含まれている？
 
 <2020/10/13>
-——————————————next—————————————
 56.引用元
 AWS を駆使して動画に YouTuber 感をちょい足しするソリューションを作ってみる - builders.flash☆ - 変化を求めるデベロッパーを応援するウェブマガジン | AWS
 手順の冒頭で”必須条件”を再確認
@@ -339,7 +338,7 @@ Commands you can use next
 
 57.Waiterのターミナル障害状態を改善
 →（改善のヒントは）CloudFormationサービスの「イベント」タブでこのエラーを発見する？
-
+——————————————next—————————————
 58.StartTranscribeFunctionRole
 CREATE_FAILED
 →API: iam:CreateRole User: arn:aws:iam::608283427828:user/udemyが実行する権限がありません
