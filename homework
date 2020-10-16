@@ -338,13 +338,29 @@ Commands you can use next
 
 57.Waiterのターミナル障害状態を改善
 →（改善のヒントは）CloudFormationサービスの「イベント」タブでこのエラーを発見する？
-——————————————next—————————————
+
+<2020/10/16>
 58.StartTranscribeFunctionRole
 CREATE_FAILED
 →API: iam:CreateRole User: arn:aws:iam::608283427828:user/udemyが実行する権限がありません
 →sam deployする為に、IAMへ実行権限を付与する方法とは？
 （権限付与する名称は？）
 
+59.（牛島さん内容）返答
+→Y入力されていても同様のエラーが出る場合、aws  configureでアクセスキーとシークレットキーの大元になっているIAMユーザーの権限がないことも0ではないと思うので、一旦administrator権限を付与して試してみる
+→コンソールIAMからadministrator権限付与にかかる前に、既に付与されていました（添付画像）
+
+60.IAMロールの説明をしていますが、Yは入力されてます？
+→入力見直しかねて、sam deploy --guided
+結果：Waiter StackCreateComplete failed: Waiter encountered a terminal failure state
+ Waiter StackCreateComplete に失敗しました。Waiter は端末の失敗状態に遭遇しました。
+ 
+ 61.Q.Waiterに関連することとは？A.CloudFormation/イベントタブ見直し
+→コンソールCloudFormation/イベントタブにて
+API: iam:CreateRole User: arn:aws:iam::608283427828:user/udemyが実行する権限がありません。
+→そもそも”権限付与していないないIAM（udemy）”になっていた
+→本来は”当ソリューションにて作成したIAM（Administrator）”にしたいので、IAMの変更をしたい
+——————————————next—————————————
 
 （エラー原因/仮説）
 GetAttできないものをGetAttしようとしています。
