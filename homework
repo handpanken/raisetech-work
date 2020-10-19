@@ -310,7 +310,7 @@ API: iam:CreateRoleが許可されていません。
 →”API: iam:CreateRole 設定”として、アクセス許可を委任するロールとして、使用中のIAMへ設定
 →原因:ResourceTag/key-name 条件キーを使用してロールにアタッチされたタグに基づいてロールを渡すアクセス権限を制限することはできません。詳細については、「AWS のリソースへのアクセスの制御」を参照してください。
 
-55.IAM ポリシーの編集でesourceTag/key-name 条件キーの名前編集→結果”添付画像1”で”次の一手”が含まれている？
+55.IAM ポリシーの編集でesourceTag/key-name 条件キーの名前編集→結果”添付画像"に”次の一手”が含まれている？
 
 <2020/10/13>
 56.引用元
@@ -354,13 +354,40 @@ CREATE_FAILED
 →入力見直しかねて、sam deploy --guided
 結果：Waiter StackCreateComplete failed: Waiter encountered a terminal failure state
  Waiter StackCreateComplete に失敗しました。Waiter は端末の失敗状態に遭遇しました。
- 
- 61.Q.Waiterに関連することとは？A.CloudFormation/イベントタブ見直し
+
+61.Waiter とは？
 →コンソールCloudFormation/イベントタブにて
 API: iam:CreateRole User: arn:aws:iam::608283427828:user/udemyが実行する権限がありません。
 →そもそも”権限付与していないないIAM（udemy）”になっていた
 →本来は”当ソリューションにて作成したIAM（Administrator）”にしたいので、IAMの変更をしたい
+
+62.Q.IAMの変更方法は？
+A.ユーザーにアタッチされているアクセス許可ポリシーの編集
+→コンソール上から解決に向かうも
+“4.[Permissions] タブを選択します。”以降、コンソール上に存在せず、作業中止
+
+63.ルートアカウントでログインしたあと、administrator権限のあるIAMユーザー作成
+→
+ユーザー Administrator 
+アクセスキー ID AKIAY3IEEQP2BBLJ5ZFG 
+シークレットアクセスキー HGY6nBOPoNEiThUG4Zw2yv6CFiNiacp2Sr2y1SxP
+パスワード '^r|$f|t-_O#
+
+64.そのiamユーザーのprofileをaws cofigureで設定し、そのユーザーで実行するようにすればいい
+→aws cofigureで設定とは？
+handpan@handpan-no-MacBook-Pro jump-cut-automation % aws configure --profile Administrator
+AWS Access Key ID [None]: AKIAY3IEEQP2BBLJ5ZFG
+AWS Secret Access Key [None]: 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
+Default region name [ap-northeast-1]: ap-northeast-1
+Default output format [None]: json
+
+65.template.yaml が配置されているディレクトリに移動
+sam build→succeeded後
+sam deploy --guided後
+Error: Failed to create managed resources: An error occurred (InvalidClientTokenId) when calling the CreateChangeSet operation: The security token included in the request is invalid.
+→要求に含まれるセキュリティ トークンが無効です。
 ——————————————next—————————————
+
 
 （エラー原因/仮説）
 GetAttできないものをGetAttしようとしています。
