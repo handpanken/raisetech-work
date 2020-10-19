@@ -388,6 +388,21 @@ sam build→succeeded後
 sam deploy --guided後
 Error: Failed to create managed resources: An error occurred (InvalidClientTokenId) when calling the CreateChangeSet operation: The security token included in the request is invalid.
 →要求に含まれるセキュリティ トークンが無効です。
+
+66.
+jump-cut-automationディレクトリを新規差し替えに伴って、cli等
+インストールし直す予定
+・aws --version
+aws-cli/2.0.52 Python/3.7.4 Darwin/19.6.0 exe/x86_64
+・sam build
+Build Succeeded
+
+6７.Q.求に含まれるセキュリティ トークンが有効にするには？
+A.aws-cli関連で
+aws configureより、ログインユーザー（IAM）の再設定
+
+68.sam deploy --guided実行
+Error: Failed to create/update the stack: jump-cut-automation, Waiter StackCreateComplete failed: Waiter encountered a terminal failure state
 ——————————————next—————————————
 
 
@@ -416,3 +431,4 @@ AWS を駆使して動画に YouTuber 感をちょい足しするソリューシ
 手順の冒頭で”必須条件”を再確認
 1.当ソリューションのソースコード、再DL
 →ここで得たソースコードの保存先ディレクトリ指定は、どうされましたか？
+
